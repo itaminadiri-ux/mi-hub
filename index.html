@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hub de Streaming</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --card-bg: #1e293b;
+      --accent: #38bdf8;
+      --text: #f8fafc;
+      --subtext: #94a3b8;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, -apple-system, sans-serif; }
+    body { background-color: var(--bg); color: var(--text); padding: 20px; }
+    header { text-align: center; margin-bottom: 24px; }
+    header h1 { font-size: 1.5rem; color: var(--accent); }
+    
+    .section-title { margin: 20px 0 12px; font-size: 1.1rem; text-transform: uppercase; letter-spacing: 1px; color: var(--subtext); border-bottom: 1px solid #334155; padding-bottom: 4px; }
+    
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 14px; }
+    
+    .card {
+      background-color: var(--card-bg);
+      border-radius: 12px;
+      padding: 16px;
+      text-align: center;
+      text-decoration: none;
+      color: var(--text);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      border: 1px solid #334155;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+    .card:active { transform: scale(0.96); border-color: var(--accent); }
+    .card svg { width: 32px; height: 32px; fill: var(--accent); }
+    .card span { font-weight: 600; font-size: 0.95rem; }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Mi Hub de Contenido</h1>
+  </header>
+
+  <div class="section-title">Fútbol y Deportes</div>
+  <div class="grid">
+    <a href="https://www.fctv33hd.fun/es" target="_blank" class="card">
+      <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 13v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+      <span>FC TV 33 HD</span>
+    </a>
+    <a href="https://futbollibretv.sx/" target="_blank" class="card">
+      <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14.5v-9l6 4.5-6 4.5z"/></svg>
+      <span>Fútbol Libre TV</span>
+    </a>
+  </div>
+
+  <div class="section-title">Cine, Series y Anime</div>
+  <div class="grid">
+    <a href="https://pelisflix1.pics/" target="_blank" class="card">
+      <svg viewBox="0 0 24 24"><path d="M18 4l2 4h-3l-2-4h-2l2 4h-3l-2-4H8l2 4H7L5 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V4h-4z"/></svg>
+      <span>Pelisflix</span>
+    </a>
+    <a href="https://seriesflixhd.win/" target="_blank" class="card">
+      <svg viewBox="0 0 24 24"><path d="M21 3H3c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h5v2h8v-2h5c1.1 0 1.99-.9 1.99-2L23 5c0-1.1-.9-2-2-2zm0 14H3V5h18v12z"/></svg>
+      <span>Seriesflix</span>
+    </a>
+    <a href="https://ver.animeonline.ninja/" target="_blank" class="card">
+      <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z"/></svg>
+      <span>Anime Online</span>
+    </a>
+  </div>
+
+</body>
+</html>
