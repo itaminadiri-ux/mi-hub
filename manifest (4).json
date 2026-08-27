@@ -1,0 +1,11 @@
+{
+  "background_color": "#ffffff",
+  "dir": "ltr",
+  "display": "standalone",
+  "name": "itaminadiri-ux.github",
+  "orientation": "any",
+  "scope": "/mi-hub/",
+  "short_name": "itaminadiri-ux.github",
+  "start_url": "/mi-hub/",
+  "theme_color": "#ffffff"
+}
