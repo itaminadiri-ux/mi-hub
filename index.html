@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>StreamHub Ultra</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --bg-dark: #030305;
+      --card-bg: rgba(255, 255, 255, 0.03);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --primary-red: #ff052b;
+      --accent-cyan: #00f2fe;
+      --accent-purple: #9d4edd;
+      --text-primary: #ffffff;
+      --text-secondary: #7e7e8f;
+      --radius-hero: 24px;
+      --radius-card: 16px;
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Inter", Roboto, sans-serif;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-primary);
+      padding-bottom: 100px;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* HEADER */
+    header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+      padding: 14px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(3, 3, 5, 0.7);
+      backdrop-filter: blur(25px) saturate(200%);
+      -webkit-backdrop-filter: blur(25px) saturate(200%);
+      border-bottom: 1px solid var(--card-border);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 1.2rem;
+      font-weight: 900;
+      letter-spacing: -0.5px;
+    }
+
+    .brand-icon {
+      width: 34px; height: 34px;
+      background: linear-gradient(135deg, var(--primary-red), var(--accent-purple));
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.9rem;
+      box-shadow: 0 0 15px rgba(255, 5, 43, 0.4);
+    }
+
+    /* BUSCADOR INTEGRADO */
+    .search-container {
+      position: relative;
+      width: 140px;
+    }
+
+    .search-input {
+      width: 100%;
+      padding: 8px 12px 8px 32px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      color: #fff;
+      font-size: 0.8rem;
+      outline: none;
+      transition: all 0.3s;
+    }
+
+    .search-input:focus {
+      width: 170px;
+      border-color: var(--accent-cyan);
+      box-shadow: 0 0 10px rgba(0, 242, 254, 0.3);
+    }
+
+    .search-icon-btn {
+      position: absolute;
+      left: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-secondary);
+      font-size: 0.75rem;
+    }
+
+    /* HERO PORTADA (DESTACADO: FC TV 33) */
+    .hero-wrapper {
+      padding: 80px 16px 16px 16px;
+    }
+
+    .hero-card {
+      position: relative;
+      width: 100%; height: 340px;
+      border-radius: var(--radius-hero);
+      overflow: hidden;
+      background: url('https://images.unsplash.com/photo-1508098682722-e99c43a406b2?q=80&w=1000&auto=format&fit=crop') center/cover no-repeat;
+      display: flex; flex-direction: column; justify-content: flex-end;
+      padding: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);
+    }
+
+    .hero-card::before {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(180deg, rgba(3, 3, 5, 0) 0%, rgba(3, 3, 5, 0.3) 40%, rgba(3, 3, 5, 0.95) 100%);
+    }
+
+    .hero-content { position: relative; z-index: 5; }
+
+    .live-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: rgba(0, 242, 254, 0.15);
+      border: 1px solid rgba(0, 242, 254, 0.4);
+      backdrop-filter: blur(10px);
+      color: var(--accent-cyan); font-size: 0.65rem; font-weight: 800;
+      padding: 4px 10px; border-radius: 20px;
+      text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px;
+    }
+
+    .hero-title {
+      font-size: 1.8rem; font-weight: 900; line-height: 1.1;
+      letter-spacing: -0.5px; margin-bottom: 4px;
+    }
+
+    .hero-desc { font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 14px; }
+
+    .btn-play {
+      background: #ffffff; color: #000; border: none;
+      padding: 12px 20px; border-radius: 12px;
+      font-weight: 800; font-size: 0.85rem;
+      display: inline-flex; align-items: center; gap: 8px;
+      text-decoration: none;
+      box-shadow: 0 8px 20px rgba(255, 255, 255, 0.2);
+    }
+
+    /* SECCIONES Y CARRUSELES */
+    .section-head {
+      padding: 12px 16px 8px 16px;
+    }
+
+    .section-head h2 { font-size: 1.1rem; font-weight: 800; letter-spacing: -0.3px; }
+
+    .scroll-row {
+      display: flex; gap: 12px; overflow-x: auto;
+      padding: 4px 16px 20px 16px;
+      scrollbar-width: none;
+    }
+    .scroll-row::-webkit-scrollbar { display: none; }
+
+    .media-card {
+      flex: 0 0 135px;
+      text-decoration: none; color: inherit;
+      transition: transform 0.25s var(--ease-out);
+    }
+    .media-card:active { transform: scale(0.93); }
+
+    .poster-box {
+      position: relative; width: 135px; height: 190px;
+      border-radius: var(--radius-card); overflow: hidden;
+      margin-bottom: 6px; background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      box-shadow: 0 8px 18px rgba(0, 0, 0, 0.5);
+    }
+
+    .poster-img { width: 100%; height: 100%; object-fit: cover; }
+
+    .badge-tag {
+      position: absolute; top: 8px; left: 8px;
+      background: rgba(3, 3, 5, 0.85);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255,255,255,0.15);
+      color: #fff; font-size: 0.55rem; font-weight: 900;
+      padding: 3px 6px; border-radius: 6px;
+    }
+
+    .badge-apk {
+      background: rgba(16, 185, 129, 0.85);
+      color: #fff;
+    }
+
+    .media-title { font-size: 0.8rem; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .media-meta { font-size: 0.7rem; color: var(--text-secondary); }
+
+    /* NAVBAR INFERIOR */
+    .navbar {
+      position: fixed; bottom: 16px; left: 16px; right: 16px;
+      height: 60px;
+      background: rgba(12, 12, 18, 0.8);
+      backdrop-filter: blur(30px) saturate(200%);
+      -webkit-backdrop-filter: blur(30px) saturate(200%);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 35px;
+      display: flex; justify-content: space-around; align-items: center;
+      z-index: 1000;
+    }
+
+    .nav-link {
+      display: flex; flex-direction: column; align-items: center; gap: 3px;
+      color: var(--text-secondary); text-decoration: none; font-size: 0.6rem; font-weight: 700;
+    }
+    .nav-link i { font-size: 1.1rem; }
+    .nav-link.active { color: #fff; }
+    .nav-link.active i { color: var(--primary-red); }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER CON BUSCADOR -->
+  <header>
+    <div class="brand">
+      <div class="brand-icon"><i class="fa-solid fa-play"></i></div>
+      <span>StreamHub</span>
+    </div>
+    <div class="search-container">
+      <i class="fa-solid fa-magnifying-glass search-icon-btn"></i>
+      <input type="text" id="searchInput" class="search-input" placeholder="Buscar..." onkeyup="filtrar()">
+    </div>
+  </header>
+
+  <!-- DESTACADO PRINCIPAL (DESTACA LA APP NATIVA FC TV 33) -->
+  <div class="hero-wrapper">
+    <div class="hero-card">
+      <div class="hero-content">
+        <div class="live-badge"><i class="fa-solid fa-bolt"></i> APP NATIVA</div>
+        <h1 class="hero-title">FC TV 33 HD</h1>
+        <p class="hero-desc">App instalada en tu dispositivo</p>
+        <a href="intent:#Intent;launchFlags=0x10000000;component=com.fctv77.app/com.rblive.launcher.splash.SplashActivity;end" class="btn-play">
+          <i class="fa-solid fa-play"></i> Abrir Aplicación
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECCIÓN 1: DEPORTES EN DIRECTO -->
+  <div class="section-head">
+    <h2>Deportes en Directo</h2>
+  </div>
+  <div class="scroll-row">
+    <!-- FC TV 33 HD -->
+    <a href="intent:#Intent;launchFlags=0x10000000;component=com.fctv77.app/com.rblive.launcher.splash.SplashActivity;end" class="media-card">
+      <div class="poster-box">
+        <span class="badge-tag badge-apk">APK</span>
+        <img class="poster-img" src="https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?q=80&w=400&auto=format&fit=crop" alt="FC TV 33 HD">
+      </div>
+      <div class="media-title">FC TV 33 HD</div>
+      <div class="media-meta">App nativa</div>
+    </a>
+
+    <!-- Fútbol Libre TV -->
+    <a href="https://futbollibre.net/" target="_blank" rel="noopener noreferrer" class="media-card">
+      <div class="poster-box">
+        <span class="badge-tag">WEB</span>
+        <img class="poster-img" src="https://images.unsplash.com/photo-1579952363873-27f3bade9f55?q=80&w=400&auto=format&fit=crop" alt="Fútbol Libre TV">
+      </div>
+      <div class="media-title">Fútbol Libre TV</div>
+      <div class="media-meta">Señal HD Global</div>
+    </a>
+
+    <!-- Alangulo TV -->
+    <a href="https://alangulotvplay.net/" target="_blank" rel="noopener noreferrer" class="media-card">
+      <div class="poster-box">
+        <span class="badge-tag">WEB</span>
+        <img class="poster-img" src="https://images.unsplash.com/photo-1574629810360-7efbbe195018?q=80&w=400&auto=format&fit=crop" alt="Alangulo TV">
+      </div>
+      <div class="media-title">Alangulo TV</div>
+      <div class="media-meta">Alternativa</div>
+    </a>
+
+    <!-- Pelota Libre HD -->
+    <a href="https://pelotalibrehd.su/" target="_blank" rel="noopener noreferrer" class="media-card">
+      <div class="poster-box">
+        <span class="badge-tag">WEB</span>
+        <img class="poster-img" src="https://images.unsplash.com/photo-1518091043644-c1d4457512c6?q=80&w=400&auto=format&fit=crop" alt="Pelota Libre HD">
+      </div>
+      <div class="media-title">Pelota Libre HD</div>
+      <div class="media-meta">Alta definición</div>
+    </a>
+
+    <!-- Rústico TV -->
+    <a href="https://rusticotv.la/" target="_blank" rel="noopener noreferrer" class="media-card">
+      <div class="poster-box">
+        <span class="badge-tag">WEB</span>
+        <img class="poster-img" src="https://images.unsplash.com/photo-1508098682722-e99c43a406b2?q=80&w=400&auto=format&fit=crop" alt="Rústico TV">
+      </div>
+      <div class="media-title">Rústico TV</div>
+      <div class="media-meta">Deportes en vivo</div>
+    </a>
+
+    <!-- Fútbol Para Todos -->
+    <a href="https://futbolparatodos.st/" target="_blank" rel="noopener noreferrer" class="media-card">
+      <div class="poster-box">
+        <span class="badge-tag">WEB</span>
+        <img class="poster-img" src="https://images.unsplash.com/photo-1431324155629-1a6deb1dec8d?q=80&w=400&auto=format&fit=crop" alt="Fútbol Para Todos">
+      </div>
+      <div class="media-title">Fútbol Para Todos</div>
+      <div class="media-meta">Multiservidor</div>
+    </a>
+
+    <!-- Roja Directa -->
+    <a href="https://rojadirectatv.ec/" target="_blank" rel="noopener noreferrer" class="media-card">
+      <div class="poster-box">
+        <span class="badge-tag">WEB</span>
+        <img class="poster-img" src="https://images.unsplash.com/photo-1522778119026-d647f0596c20?q=80&w=400&auto=format&fit=crop" alt="Roja Directa">
+      </div>
+      <div class="media-title">Roja Directa</div>
+      <div class="media-meta">Clásico int.</div>
+    </a>
+
+    <!-- Pirlo TV -->
+    <a href="https://www.pirlotv.world/" target="_blank" rel="noopener noreferrer" class="media-card">
+      <div class="poster-box">
+        <span class="badge-tag">WEB</span>
+        <img class="poster-img" src="https://images.unsplash.com/photo-1517927033932-b3d18e61fb3a?q=80&w=400&auto=format&fit=crop" alt="Pirlo TV">
+      </div>
+      <div class="media-title">Pirlo TV</div>
+      <div class="media-meta">Emisión en vivo</div>
+    </a>
+
+    <!-- Elitegol TV -->
+    <a href="https://elitegoltv.site/" target="_blank" rel="noopener noreferrer" class="media-card">
+      <div class="poster-box">
+        <span class="badge-tag">WEB</span>
+        <img class="poster-img" src="https://images.unsplash.com/photo-1560272564-c83b66b1ad12?q=80&w=400&auto=format&fit=crop" alt="Elitegol TV">
+      </div>
+      <div class="media-title">Elitegol TV</div>
+      <div class="media-meta">Enlaces directos</div>
+    </a>
+  </div>
+
+  <!-- SECCIÓN 2: CINE Y ENTRETE NIMIENTO -->
+  <div class="section-head">
+    <h2>Cine & Entretenimiento</h2>
+  </div>
+  <div class="scroll-row">
+    <!-- Pelisflix -->
+    <a href="https://pelisflix.top/" target="_blank" rel="noopener noreferrer" class="media-card">
+      <div class="poster-box">
+        <span class="badge-tag">PELIS</span>
+        <img class="poster-img" src="https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?q=80&w=400&auto=format&fit=crop" alt="Pelisflix">
+      </div>
+      <div class="media-title">Pelisflix</div>
+      <div class="media-meta">Estrenos Cine</div>
+    </a>
+
+    <!-- Seriesflix HD -->
+    <a href="https://seriesflixhd.win/" target="_blank" rel="noopener noreferrer" class="media-card">
+      <div class="poster-box">
+        <span class="badge-tag">SERIES</span>
+        <img class="poster-img" src="https://images.unsplash.com/photo-1522869635100-9f4c5e86aa37?q=80&w=400&auto=format&fit=crop" alt="Seriesflix HD">
+      </div>
+      <div class="media-title">Seriesflix HD</div>
+      <div class="media-meta">Streaming</div>
+    </a>
+
+    <!-- Anime Online -->
+    <a href="https://animeonline.ninja/" target="_blank" rel="noopener noreferrer" class="media-card">
+      <div class="poster-box">
+        <span class="badge-tag">ANIME</span>
+        <img class="poster-img" src="https://images.unsplash.com/photo-1578632767115-351597cf2477?q=80&w=400&auto=format&fit=crop" alt="Anime Online">
+      </div>
+      <div class="media-title">Anime Online</div>
+      <div class="media-meta">Episodios al día</div>
+    </a>
+  </div>
+
+  <!-- NAVBAR FLOTANTE -->
+  <nav class="navbar">
+    <a href="#" class="nav-link active">
+      <i class="fa-solid fa-house"></i>
+      <span>Inicio</span>
+    </a>
+    <a href="#" class="nav-link">
+      <i class="fa-solid fa-futbol"></i>
+      <span>Deportes</span>
+    </a>
+    <a href="#" class="nav-link">
+      <i class="fa-solid fa-film"></i>
+      <span>Cine</span>
+    </a>
+  </nav>
+
+  <!-- JS FILTRADO -->
+  <script>
+    function filtrar() {
+      const input = document.getElementById('searchInput').value.toLowerCase();
+      const cards = document.getElementsByClassName('media-card');
+      
+      for (let card of cards) {
+        const title = card.querySelector('.media-title').innerText.toLowerCase();
+        if (title.includes(input)) {
+          card.style.display = "block";
+        } else {
+          card.style.display = "none";
+        }
+      }
+    }
+  </script>
+</body>
+          </html>
+          
