@@ -3,31 +3,31 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>StreamHub Premium</title>
+  <title>StreamHub Ultra</title>
   <style>
-    /* VARIABLES DE DISEÑO PREMIUM */
     :root {
-      --bg-dark: #070a13; /* Fondo ultra oscuro profundo */
-      --card-bg: rgba(30, 41, 59, 0.4); /* Fondo tarjeta efecto cristal */
-      --card-border: rgba(255, 255, 255, 0.05); /* Borde casi invisible */
-      --accent: #00e5ff; /* Azul neón vibrante sutil */
-      --text-main: #f1f5f9; /* Blanco suave */
-      --text-muted: #94a3b8; /* Gris azulado para títulos */
-      --ease: cubic-bezier(0.23, 1, 0.32, 1); /* Animación suave Apple-style */
+      --bg: #03060d;
+      --surface: rgba(15, 23, 42, 0.4);
+      --surface-border: rgba(255, 255, 255, 0.08);
+      --accent: #00f2fe;
+      --accent-glow: rgba(0, 242, 254, 0.15);
+      --text: #f8fafc;
+      --text-sub: #64748b;
+      --ease: cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Roboto', sans-serif;
-      -webkit-tap-highlight-color: transparent; /* Quita el flash azul al tocar en móvil */
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, sans-serif;
+      -webkit-tap-highlight-color: transparent;
     }
 
     body {
-      background-color: var(--bg-dark);
-      color: var(--text-main);
-      padding: 30px 20px;
+      background-color: var(--bg);
+      color: var(--text);
+      padding: 30px 16px 50px;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -35,198 +35,319 @@
       overflow-x: hidden;
     }
 
-    /* TÍTULO PRINCIPAL ESTÉTICO */
-    h1 {
-      font-size: 1.8rem;
-      font-weight: 800;
-      letter-spacing: -1px;
-      margin-bottom: 35px;
-      margin-top: 10px;
-      background: linear-gradient(135deg, #ffffff 0%, #a5b4fc 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+    /* Fondo dinámico de alta gama */
+    .glow-bg {
+      position: fixed;
+      top: -150px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 380px;
+      height: 380px;
+      background: radial-gradient(circle, rgba(0, 242, 254, 0.12) 0%, transparent 70%);
+      filter: blur(80px);
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    .header {
+      width: 100%;
+      max-width: 440px;
+      margin-bottom: 24px;
       text-align: center;
     }
 
-    /* SECCIONES MINIMALISTAS */
-    .section-container {
+    .badge {
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 20px;
+      background: rgba(0, 242, 254, 0.08);
+      border: 1px solid rgba(0, 242, 254, 0.2);
+      color: var(--accent);
+      font-size: 0.65rem;
+      font-weight: 800;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    h1 {
+      font-size: 2rem;
+      font-weight: 800;
+      letter-spacing: -0.8px;
+      background: linear-gradient(180deg, #ffffff 30%, #94a3b8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    /* Barra de Búsqueda Inteligente */
+    .search-box {
       width: 100%;
-      max-width: 480px;
-      margin-bottom: 30px;
+      max-width: 440px;
+      margin-bottom: 20px;
+      position: relative;
+    }
+
+    .search-input {
+      width: 100%;
+      padding: 14px 18px 14px 44px;
+      background: rgba(15, 23, 42, 0.6);
+      border: 1px solid var(--surface-border);
+      border-radius: 14px;
+      color: var(--text);
+      font-size: 0.9rem;
+      backdrop-filter: blur(12px);
+      outline: none;
+      transition: var(--ease) 0.3s;
+    }
+
+    .search-input:focus {
+      border-color: rgba(0, 242, 254, 0.4);
+      box-shadow: 0 0 20px var(--accent-glow);
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 16px;
+      height: 16px;
+      fill: var(--text-sub);
+    }
+
+    /* Grid principal */
+    .content-area {
+      width: 100%;
+      max-width: 440px;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
     }
 
     .section-title {
-      font-size: 0.75rem;
+      font-size: 0.7rem;
       font-weight: 700;
-      color: var(--text-muted);
-      letter-spacing: 2px;
+      color: var(--text-sub);
+      letter-spacing: 2.5px;
       text-transform: uppercase;
-      margin-bottom: 15px;
-      padding-left: 5px;
+      margin-bottom: 12px;
+      padding-left: 4px;
     }
 
-    /* GRID DE TARJETAS MODERNAS */
     .grid {
       display: grid;
-      grid-template-columns: 1fr; /* Una columna por fila para estética horizontal */
-      gap: 12px;
+      grid-template-columns: 1fr;
+      gap: 10px;
     }
 
-    /* TARJETA PREMIUM CON EFECTO CRISTAL */
+    /* Tarjeta Ultra-Premium */
     .card {
-      background-color: var(--card-bg);
-      backdrop-filter: blur(10px); /* Efecto desenfoque de cristal */
-      -webkit-backdrop-filter: blur(10px);
-      border: 1px solid var(--card-border);
+      background: var(--surface);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--surface-border);
       border-radius: 16px;
-      padding: 18px 20px;
+      padding: 14px 18px;
       display: flex;
-      align-items: center; /* Alineación horizontal */
+      align-items: center;
       text-decoration: none;
-      color: var(--text-main);
-      transition: all 0.4s var(--ease);
+      color: var(--text);
+      transition: all 0.3s var(--ease);
       position: relative;
       overflow: hidden;
     }
 
-    /* Brillo sutil superior en la tarjeta */
     .card::before {
       content: '';
       position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 1px;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+      top: 0; left: 0; width: 100%; height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.12), transparent);
     }
 
-    /* Interacción al tocar (más sutil) */
     .card:active {
-      transform: scale(0.97) translateY(1px);
-      background-color: rgba(30, 41, 59, 0.6);
-      border-color: rgba(255, 255, 255, 0.1);
+      transform: scale(0.97);
+      background: rgba(30, 41, 59, 0.7);
+      border-color: rgba(0, 242, 254, 0.3);
     }
 
-    /* Iconos modernos y unificados */
-    .card .icon-container {
-      width: 45px;
-      height: 45px;
-      background-color: rgba(0, 229, 255, 0.1); /* Fondo icono muy suave */
+    .icon-wrapper {
+      width: 40px;
+      height: 40px;
       border-radius: 12px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.06);
       display: flex;
       align-items: center;
       justify-content: center;
-      margin-right: 18px;
-      font-size: 1.4rem;
-      color: var(--accent);
-      flex-shrink: 0; /* Evita que el icono se encoja */
+      margin-right: 14px;
+      flex-shrink: 0;
     }
 
-    /* Estilo para el icono de Fútbol (Balón limpio) */
-    .icon-ball {
-      filter: drop-shadow(0 0 5px rgba(0, 229, 255, 0.3));
+    .icon-wrapper svg {
+      width: 20px;
+      height: 20px;
+      fill: var(--accent);
     }
 
-    /* Texto de la tarjeta */
-    .card span {
-      font-size: 1rem;
-      font-weight: 600;
-      letter-spacing: -0.3px;
+    .info {
       flex-grow: 1;
     }
 
-    /* Flecha sutil a la derecha */
-    .card::after {
-      content: '→';
+    .name {
+      font-size: 0.95rem;
+      font-weight: 600;
+      letter-spacing: -0.2px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .tag {
+      font-size: 0.7rem;
+      color: var(--text-sub);
+      margin-top: 1px;
+    }
+
+    .arrow {
+      color: var(--text-sub);
       font-size: 1.1rem;
-      color: rgba(255,255,255,0.2);
-      transition: all 0.3s var(--ease);
+      opacity: 0.5;
     }
 
-    .card:active::after {
-      color: var(--accent);
-      transform: translateX(3px);
+    .tag-app {
+      font-size: 0.6rem;
+      background: rgba(16, 185, 129, 0.15);
+      color: #34d399;
+      border: 1px solid rgba(52, 211, 153, 0.3);
+      padding: 1px 6px;
+      border-radius: 4px;
+      font-weight: 700;
     }
-
   </style>
 </head>
 <body>
 
-  <h1>StreamHub Premium</h1>
+  <div class="glow-bg"></div>
 
-  <!-- SECCIÓN DEPORTES -->
-  <div class="section-container">
-    <div class="section-title">Deportes Live</div>
-    <div class="grid">
-      <!-- Abre la app FCTV33 instalada -->
-      <a href="intent:#Intent;launchFlags=0x10000000;component=com.fctv77.app/com.rblive.launcher.splash.SplashActivity;end" class="card">
-        <div class="icon-container icon-ball">⚽</div>
-        <span>FC TV 33 HD (App)</span>
-      </a>
+  <div class="header">
+    <div class="badge">PRO HUB</div>
+    <h1>StreamHub Ultra</h1>
+  </div>
 
-      <!-- Forzados a Brave -->
-      <a href="intent://futbollibre.net/#Intent;scheme=https;package=com.brave.browser;end" class="card">
-        <div class="icon-container icon-ball">⚽</div>
-        <span>Fútbol Libre TV</span>
-      </a>
+  <div class="search-box">
+    <svg class="search-icon" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+    <input type="text" id="searchInput" class="search-input" placeholder="Buscar canal o plataforma..." onkeyup="filtrar()">
+  </div>
 
-      <a href="intent://alangulotvplay.net/#Intent;scheme=https;package=com.brave.browser;end" class="card">
-        <div class="icon-container icon-ball">⚽</div>
-        <span>Alangulo TV</span>
-      </a>
+  <div class="content-area">
+    <div>
+      <div class="section-title">Deportes en Directo</div>
+      <div class="grid" id="sportsGrid">
+        <a href="intent:#Intent;launchFlags=0x10000000;component=com.fctv77.app/com.rblive.launcher.splash.SplashActivity;end" class="card">
+          <div class="icon-wrapper"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg></div>
+          <div class="info">
+            <div class="name">FC TV 33 HD <span class="tag-app">APK</span></div>
+            <div class="tag">App nativa instalada</div>
+          </div>
+          <div class="arrow">›</div>
+        </a>
 
-      <a href="intent://pelotalibrehd.su/#Intent;scheme=https;package=com.brave.browser;end" class="card">
-        <div class="icon-container icon-ball">⚽</div>
-        <span>Pelota Libre HD</span>
-      </a>
+        <a href="#" onclick="lanzar('https://futbollibre.net/'); return false;" class="card">
+          <div class="icon-wrapper"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+          <div class="info"><div class="name">Fútbol Libre TV</div><div class="tag">Señal HD Global</div></div>
+          <div class="arrow">›</div>
+        </a>
 
-      <a href="intent://rusticotv.la/#Intent;scheme=https;package=com.brave.browser;end" class="card">
-        <div class="icon-container icon-ball">⚽</div>
-        <span>Rústico TV</span>
-      </a>
+        <a href="#" onclick="lanzar('https://alangulotvplay.net/'); return false;" class="card">
+          <div class="icon-wrapper"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/></svg></div>
+          <div class="info"><div class="name">Alangulo TV</div><div class="tag">Transmisión alternativa</div></div>
+          <div class="arrow">›</div>
+        </a>
 
-      <a href="intent://futbolparatodos.st/#Intent;scheme=https;package=com.brave.browser;end" class="card">
-        <div class="icon-container icon-ball">⚽</div>
-        <span>Fútbol Para Todos</span>
-      </a>
+        <a href="#" onclick="lanzar('https://pelotalibrehd.su/'); return false;" class="card">
+          <div class="icon-wrapper"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/></svg></div>
+          <div class="info"><div class="name">Pelota Libre HD</div><div class="tag">Alta definición</div></div>
+          <div class="arrow">›</div>
+        </a>
 
-      <a href="intent://rojadirectatv.ec/#Intent;scheme=https;package=com.brave.browser;end" class="card">
-        <div class="icon-container icon-ball">⚽</div>
-        <span>Roja Directa</span>
-      </a>
+        <a href="#" onclick="lanzar('https://rusticotv.la/'); return false;" class="card">
+          <div class="icon-wrapper"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/></svg></div>
+          <div class="info"><div class="name">Rústico TV</div><div class="tag">Deportes en directo</div></div>
+          <div class="arrow">›</div>
+        </a>
 
-      <a href="intent://www.pirlotv.world/#Intent;scheme=https;package=com.brave.browser;end" class="card">
-        <div class="icon-container icon-ball">⚽</div>
-        <span>Pirlo TV</span>
-      </a>
+        <a href="#" onclick="lanzar('https://futbolparatodos.st/'); return false;" class="card">
+          <div class="icon-wrapper"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/></svg></div>
+          <div class="info"><div class="name">Fútbol Para Todos</div><div class="tag">Multiservidor</div></div>
+          <div class="arrow">›</div>
+        </a>
 
-      <a href="intent://elitegoltv.site/#Intent;scheme=https;package=com.brave.browser;end" class="card">
-        <div class="icon-container icon-ball">⚽</div>
-        <span>Elitegol TV</span>
-      </a>
+        <a href="#" onclick="lanzar('https://rojadirectatv.ec/'); return false;" class="card">
+          <div class="icon-wrapper"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/></svg></div>
+          <div class="info"><div class="name">Roja Directa</div><div class="tag">Clásico internacional</div></div>
+          <div class="arrow">›</div>
+        </a>
+
+        <a href="#" onclick="lanzar('https://www.pirlotv.world/'); return false;" class="card">
+          <div class="icon-wrapper"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/></svg></div>
+          <div class="info"><div class="name">Pirlo TV</div><div class="tag">Emisión en vivo</div></div>
+          <div class="arrow">›</div>
+        </a>
+
+        <a href="#" onclick="lanzar('https://elitegoltv.site/'); return false;" class="card">
+          <div class="icon-wrapper"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/></svg></div>
+          <div class="info"><div class="name">Elitegol TV</div><div class="tag">Enlaces directos</div></div>
+          <div class="arrow">›</div>
+        </a>
+      </div>
+    </div>
+
+    <div>
+      <div class="section-title">Cine & Entretenimiento</div>
+      <div class="grid" id="mediaGrid">
+        <a href="#" onclick="lanzar('https://pelisflix.top/'); return false;" class="card">
+          <div class="icon-wrapper"><svg viewBox="0 0 24 24"><path d="M18 4l2 4h-3l-2-4h-2l2 4h-3l-2-4H8l2 4H7L5 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V4h-4z"/></svg></div>
+          <div class="info"><div class="name">Pelisflix</div><div class="tag">Estrenos de Cine</div></div>
+          <div class="arrow">›</div>
+        </a>
+
+        <a href="#" onclick="lanzar('https://seriesflixhd.win/'); return false;" class="card">
+          <div class="icon-wrapper"><svg viewBox="0 0 24 24"><path d="M21 3H3c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h5v2h8v-2h5c1.1 0 1.99-.9 1.99-2L23 5c0-1.1-.9-2-2-2zm0 14H3V5h18v12z"/></svg></div>
+          <div class="info"><div class="name">Seriesflix HD</div><div class="tag">Series en Streaming</div></div>
+          <div class="arrow">›</div>
+        </a>
+
+        <a href="#" onclick="lanzar('https://animeonline.ninja/'); return false;" class="card">
+          <div class="icon-wrapper"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z"/></svg></div>
+          <div class="info"><div class="name">Anime Online</div><div class="tag">Episodios al día</div></div>
+          <div class="arrow">›</div>
+        </a>
+      </div>
     </div>
   </div>
 
-  <!-- SECCIÓN ENTRETENIMIENTO -->
-  <div class="section-container">
-    <div class="section-title">Cine & Series</div>
-    <div class="grid">
-      <a href="intent://pelisflix.top/#Intent;scheme=https;package=com.brave.browser;end" class="card">
-        <div class="icon-container">🎬</div>
-        <span>Pelisflix Ultra</span>
-      </a>
+  <script>
+    function lanzar(url) {
+      window.open(url, '_system');
+      setTimeout(function() {
+        window.location.href = url;
+      }, 50);
+    }
 
-      <a href="intent://seriesflixhd.win/#Intent;scheme=https;package=com.brave.browser;end" class="card">
-        <div class="icon-container">📺</div>
-        <span>Seriesflix HD</span>
-      </a>
-
-      <a href="intent://animeonline.ninja/#Intent;scheme=https;package=com.brave.browser;end" class="card">
-        <div class="icon-container">⚔️</div>
-        <span>Anime Online Ninja</span>
-      </a>
-    </div>
-  </div>
-
+    function filtrar() {
+      const input = document.getElementById('searchInput').value.toLowerCase();
+      const cards = document.getElementsByClassName('card');
+      
+      for (let card of cards) {
+        const title = card.querySelector('.name').innerText.toLowerCase();
+        if (title.includes(input)) {
+          card.style.display = "flex";
+        } else {
+          card.style.display = "none";
+        }
+      }
+    }
+  </script>
 </body>
 </html>
+
