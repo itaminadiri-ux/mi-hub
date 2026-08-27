@@ -8,17 +8,17 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     :root {
-      --bg-dark: #030305;
+      --bg-dark: #050508;
       --card-bg: rgba(255, 255, 255, 0.03);
       --card-border: rgba(255, 255, 255, 0.08);
-      --primary-red: #ff052b;
+      --primary-red: #ff0550;
       --accent-cyan: #00f2fe;
-      --accent-purple: #9d4edd;
+      --accent-purple: #7928ca;
       --text-primary: #ffffff;
-      --text-secondary: #7e7e8f;
-      --radius-hero: 24px;
-      --radius-card: 16px;
-      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+      --text-secondary: #8e8e9f;
+      --radius-hero: 28px;
+      --radius-card: 18px;
+      --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
     }
 
     * {
@@ -32,218 +32,235 @@
     body {
       background-color: var(--bg-dark);
       color: var(--text-primary);
-      padding-bottom: 100px;
+      padding-bottom: 110px;
       overflow-x: hidden;
       -webkit-font-smoothing: antialiased;
     }
 
-    /* HEADER */
-    header {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 1000;
-      padding: 14px 20px;
+    /* BARRA SUPERIOR ESTRUCTURAL (SIN BARRA FIJA ESTÁTICA) */
+    .top-bar {
+      padding: 24px 20px 12px 20px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      background: rgba(3, 3, 5, 0.7);
-      backdrop-filter: blur(25px) saturate(200%);
-      -webkit-backdrop-filter: blur(25px) saturate(200%);
-      border-bottom: 1px solid var(--card-border);
     }
 
     .brand {
       display: flex;
       align-items: center;
-      gap: 10px;
-      font-size: 1.2rem;
+      gap: 12px;
+      font-size: 1.4rem;
       font-weight: 900;
-      letter-spacing: -0.5px;
+      letter-spacing: -0.8px;
+      background: linear-gradient(135deg, #fff 40%, var(--text-secondary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
 
     .brand-icon {
-      width: 34px; height: 34px;
+      width: 40px; height: 40px;
       background: linear-gradient(135deg, var(--primary-red), var(--accent-purple));
-      border-radius: 10px;
+      border-radius: 12px;
       display: flex; align-items: center; justify-content: center;
-      font-size: 0.9rem;
-      box-shadow: 0 0 15px rgba(255, 5, 43, 0.4);
+      font-size: 1.1rem;
+      color: #fff;
+      box-shadow: 0 8px 25px rgba(255, 5, 80, 0.5);
     }
 
-    /* BUSCADOR INTEGRADO */
+    /* BUSCADOR FLOATING ULTRA MODERNO */
+    .search-wrapper {
+      padding: 0 20px 16px 20px;
+    }
+
     .search-container {
       position: relative;
-      width: 140px;
+      width: 100%;
     }
 
     .search-input {
       width: 100%;
-      padding: 8px 12px 8px 32px;
-      background: rgba(255, 255, 255, 0.08);
+      padding: 14px 16px 14px 44px;
+      background: rgba(255, 255, 255, 0.05);
       border: 1px solid var(--card-border);
       border-radius: 20px;
       color: #fff;
-      font-size: 0.8rem;
+      font-size: 0.9rem;
       outline: none;
-      transition: all 0.3s;
+      backdrop-filter: blur(20px);
+      transition: all 0.3s var(--ease-bounce);
     }
 
     .search-input:focus {
-      width: 170px;
+      background: rgba(255, 255, 255, 0.08);
       border-color: var(--accent-cyan);
-      box-shadow: 0 0 10px rgba(0, 242, 254, 0.3);
+      box-shadow: 0 0 20px rgba(0, 242, 254, 0.25);
     }
 
     .search-icon-btn {
       position: absolute;
-      left: 10px;
+      left: 16px;
       top: 50%;
       transform: translateY(-50%);
       color: var(--text-secondary);
-      font-size: 0.75rem;
+      font-size: 0.9rem;
     }
 
-    /* HERO PORTADA (DESTACADO: FC TV 33) */
+    /* HERO BANNER CINEMÁTICO */
     .hero-wrapper {
-      padding: 80px 16px 16px 16px;
+      padding: 0 20px 24px 20px;
     }
 
     .hero-card {
       position: relative;
-      width: 100%; height: 340px;
+      width: 100%; height: 360px;
       border-radius: var(--radius-hero);
       overflow: hidden;
       background: url('https://images.unsplash.com/photo-1508098682722-e99c43a406b2?q=80&w=1000&auto=format&fit=crop') center/cover no-repeat;
       display: flex; flex-direction: column; justify-content: flex-end;
-      padding: 20px;
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);
+      padding: 24px;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.9);
     }
 
     .hero-card::before {
       content: ''; position: absolute; inset: 0;
-      background: linear-gradient(180deg, rgba(3, 3, 5, 0) 0%, rgba(3, 3, 5, 0.3) 40%, rgba(3, 3, 5, 0.95) 100%);
+      background: linear-gradient(180deg, rgba(5, 5, 8, 0) 0%, rgba(5, 5, 8, 0.4) 40%, rgba(5, 5, 8, 0.98) 100%);
     }
 
     .hero-content { position: relative; z-index: 5; }
 
     .live-badge {
       display: inline-flex; align-items: center; gap: 6px;
-      background: rgba(0, 242, 254, 0.15);
-      border: 1px solid rgba(0, 242, 254, 0.4);
-      backdrop-filter: blur(10px);
-      color: var(--accent-cyan); font-size: 0.65rem; font-weight: 800;
-      padding: 4px 10px; border-radius: 20px;
-      text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px;
+      background: linear-gradient(135deg, rgba(0, 242, 254, 0.2), rgba(121, 40, 202, 0.2));
+      border: 1px solid rgba(0, 242, 254, 0.5);
+      backdrop-filter: blur(12px);
+      color: var(--accent-cyan); font-size: 0.75rem; font-weight: 800;
+      padding: 6px 14px; border-radius: 20px;
+      text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px;
+      box-shadow: 0 0 15px rgba(0, 242, 254, 0.2);
     }
 
     .hero-title {
-      font-size: 1.8rem; font-weight: 900; line-height: 1.1;
-      letter-spacing: -0.5px; margin-bottom: 4px;
+      font-size: 2.1rem; font-weight: 900; line-height: 1.1;
+      letter-spacing: -0.8px; margin-bottom: 6px;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.5);
     }
 
-    .hero-desc { font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 14px; }
+    .hero-desc { font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 18px; }
 
     .btn-play {
       background: #ffffff; color: #000; border: none;
-      padding: 12px 20px; border-radius: 12px;
-      font-weight: 800; font-size: 0.85rem;
-      display: inline-flex; align-items: center; gap: 8px;
+      padding: 14px 24px; border-radius: 16px;
+      font-weight: 800; font-size: 0.9rem;
+      display: inline-flex; align-items: center; gap: 10px;
       text-decoration: none;
-      box-shadow: 0 8px 20px rgba(255, 255, 255, 0.2);
+      box-shadow: 0 10px 25px rgba(255, 255, 255, 0.3);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
+    .btn-play:active { transform: scale(0.96); }
 
     /* SECCIONES Y CARRUSELES */
     .section-head {
-      padding: 12px 16px 8px 16px;
+      padding: 16px 20px 12px 20px;
     }
 
-    .section-head h2 { font-size: 1.1rem; font-weight: 800; letter-spacing: -0.3px; }
+    .section-head h2 { font-size: 1.25rem; font-weight: 800; letter-spacing: -0.4px; }
 
     .scroll-row {
-      display: flex; gap: 12px; overflow-x: auto;
-      padding: 4px 16px 20px 16px;
+      display: flex; gap: 14px; overflow-x: auto;
+      padding: 4px 20px 24px 20px;
       scrollbar-width: none;
     }
     .scroll-row::-webkit-scrollbar { display: none; }
 
     .media-card {
-      flex: 0 0 135px;
+      flex: 0 0 145px;
       text-decoration: none; color: inherit;
-      transition: transform 0.25s var(--ease-out);
+      transition: transform 0.3s var(--ease-bounce);
     }
     .media-card:active { transform: scale(0.93); }
 
     .poster-box {
-      position: relative; width: 135px; height: 190px;
+      position: relative; width: 145px; height: 210px;
       border-radius: var(--radius-card); overflow: hidden;
-      margin-bottom: 6px; background: var(--card-bg);
+      margin-bottom: 8px; background: var(--card-bg);
       border: 1px solid var(--card-border);
-      box-shadow: 0 8px 18px rgba(0, 0, 0, 0.5);
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.6);
     }
 
-    .poster-img { width: 100%; height: 100%; object-fit: cover; }
+    .poster-img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease; }
+    .media-card:hover .poster-img { transform: scale(1.05); }
 
     .badge-tag {
-      position: absolute; top: 8px; left: 8px;
-      background: rgba(3, 3, 5, 0.85);
-      backdrop-filter: blur(8px);
-      border: 1px solid rgba(255,255,255,0.15);
-      color: #fff; font-size: 0.55rem; font-weight: 900;
-      padding: 3px 6px; border-radius: 6px;
+      position: absolute; top: 10px; left: 10px;
+      background: rgba(5, 5, 8, 0.75);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.2);
+      color: #fff; font-size: 0.6rem; font-weight: 900;
+      padding: 4px 8px; border-radius: 8px;
     }
 
     .badge-apk {
-      background: rgba(16, 185, 129, 0.85);
-      color: #fff;
+      background: linear-gradient(135deg, #10b981, #059669);
+      border: none;
+      box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4);
     }
 
-    .media-title { font-size: 0.8rem; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .media-meta { font-size: 0.7rem; color: var(--text-secondary); }
+    .media-title { font-size: 0.85rem; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .media-meta { font-size: 0.75rem; color: var(--text-secondary); margin-top: 2px; }
 
-    /* NAVBAR INFERIOR */
+    /* NAVBAR FLOTANTE ESTILO ISLA NEÓN */
     .navbar {
-      position: fixed; bottom: 16px; left: 16px; right: 16px;
-      height: 60px;
-      background: rgba(12, 12, 18, 0.8);
+      position: fixed; bottom: 20px; left: 20px; right: 20px;
+      height: 64px;
+      background: rgba(18, 18, 26, 0.75);
       backdrop-filter: blur(30px) saturate(200%);
       -webkit-backdrop-filter: blur(30px) saturate(200%);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      border-radius: 35px;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 40px;
       display: flex; justify-content: space-around; align-items: center;
       z-index: 1000;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8), 0 0 20px rgba(255, 5, 80, 0.15);
     }
 
     .nav-link {
-      display: flex; flex-direction: column; align-items: center; gap: 3px;
-      color: var(--text-secondary); text-decoration: none; font-size: 0.6rem; font-weight: 700;
+      display: flex; flex-direction: column; align-items: center; gap: 4px;
+      color: var(--text-secondary); text-decoration: none; font-size: 0.65rem; font-weight: 700;
+      transition: color 0.3s ease, transform 0.2s ease;
     }
-    .nav-link i { font-size: 1.1rem; }
+    .nav-link i { font-size: 1.25rem; }
     .nav-link.active { color: #fff; }
-    .nav-link.active i { color: var(--primary-red); }
+    .nav-link.active i {
+      color: var(--primary-red);
+      filter: drop-shadow(0 0 8px var(--primary-red));
+    }
   </style>
 </head>
 <body>
 
-  <!-- HEADER CON BUSCADOR -->
-  <header>
+  <!-- MARCA SUPERIOR -->
+  <div class="top-bar">
     <div class="brand">
       <div class="brand-icon"><i class="fa-solid fa-play"></i></div>
       <span>StreamHub</span>
     </div>
+  </div>
+
+  <!-- BUSCADOR FLOTANTE INTEGRADO -->
+  <div class="search-wrapper">
     <div class="search-container">
       <i class="fa-solid fa-magnifying-glass search-icon-btn"></i>
-      <input type="text" id="searchInput" class="search-input" placeholder="Buscar..." onkeyup="filtrar()">
+      <input type="text" id="searchInput" class="search-input" placeholder="Buscar canal, película o serie..." onkeyup="filtrar()">
     </div>
-  </header>
+  </div>
 
-  <!-- DESTACADO PRINCIPAL (DESTACA LA APP NATIVA FC TV 33) -->
-  <div class="hero-wrapper">
+  <!-- DESTACADO PRINCIPAL -->
+  <div class="hero-wrapper" id="sec-inicio">
     <div class="hero-card">
       <div class="hero-content">
         <div class="live-badge"><i class="fa-solid fa-bolt"></i> APP NATIVA</div>
         <h1 class="hero-title">FC TV 33 HD</h1>
-        <p class="hero-desc">App instalada en tu dispositivo</p>
+        <p class="hero-desc">Aplicación optimizada e instalada en tu sistema</p>
         <a href="intent:#Intent;launchFlags=0x10000000;component=com.fctv77.app/com.rblive.launcher.splash.SplashActivity;end" class="btn-play">
           <i class="fa-solid fa-play"></i> Abrir Aplicación
         </a>
@@ -251,12 +268,11 @@
     </div>
   </div>
 
-  <!-- SECCIÓN 1: DEPORTES EN DIRECTO -->
-  <div class="section-head">
+  <!-- SECCIÓN 1: DEPORTES -->
+  <div class="section-head" id="sec-deportes">
     <h2>Deportes en Directo</h2>
   </div>
   <div class="scroll-row">
-    <!-- FC TV 33 HD -->
     <a href="intent:#Intent;launchFlags=0x10000000;component=com.fctv77.app/com.rblive.launcher.splash.SplashActivity;end" class="media-card">
       <div class="poster-box">
         <span class="badge-tag badge-apk">APK</span>
@@ -266,7 +282,6 @@
       <div class="media-meta">App nativa</div>
     </a>
 
-    <!-- Fútbol Libre TV -->
     <a href="https://futbollibre.net/" target="_blank" rel="noopener noreferrer" class="media-card">
       <div class="poster-box">
         <span class="badge-tag">WEB</span>
@@ -276,7 +291,6 @@
       <div class="media-meta">Señal HD Global</div>
     </a>
 
-    <!-- Alangulo TV -->
     <a href="https://alangulotvplay.net/" target="_blank" rel="noopener noreferrer" class="media-card">
       <div class="poster-box">
         <span class="badge-tag">WEB</span>
@@ -286,7 +300,6 @@
       <div class="media-meta">Alternativa</div>
     </a>
 
-    <!-- Pelota Libre HD -->
     <a href="https://pelotalibrehd.su/" target="_blank" rel="noopener noreferrer" class="media-card">
       <div class="poster-box">
         <span class="badge-tag">WEB</span>
@@ -296,7 +309,6 @@
       <div class="media-meta">Alta definición</div>
     </a>
 
-    <!-- Rústico TV -->
     <a href="https://rusticotv.la/" target="_blank" rel="noopener noreferrer" class="media-card">
       <div class="poster-box">
         <span class="badge-tag">WEB</span>
@@ -306,7 +318,6 @@
       <div class="media-meta">Deportes en vivo</div>
     </a>
 
-    <!-- Fútbol Para Todos -->
     <a href="https://futbolparatodos.st/" target="_blank" rel="noopener noreferrer" class="media-card">
       <div class="poster-box">
         <span class="badge-tag">WEB</span>
@@ -316,7 +327,6 @@
       <div class="media-meta">Multiservidor</div>
     </a>
 
-    <!-- Roja Directa -->
     <a href="https://rojadirectatv.ec/" target="_blank" rel="noopener noreferrer" class="media-card">
       <div class="poster-box">
         <span class="badge-tag">WEB</span>
@@ -326,7 +336,6 @@
       <div class="media-meta">Clásico int.</div>
     </a>
 
-    <!-- Pirlo TV -->
     <a href="https://www.pirlotv.world/" target="_blank" rel="noopener noreferrer" class="media-card">
       <div class="poster-box">
         <span class="badge-tag">WEB</span>
@@ -336,7 +345,6 @@
       <div class="media-meta">Emisión en vivo</div>
     </a>
 
-    <!-- Elitegol TV -->
     <a href="https://elitegoltv.site/" target="_blank" rel="noopener noreferrer" class="media-card">
       <div class="poster-box">
         <span class="badge-tag">WEB</span>
@@ -347,12 +355,11 @@
     </a>
   </div>
 
-  <!-- SECCIÓN 2: CINE Y ENTRETE NIMIENTO -->
-  <div class="section-head">
+  <!-- SECCIÓN 2: CINE -->
+  <div class="section-head" id="sec-cine">
     <h2>Cine & Entretenimiento</h2>
   </div>
   <div class="scroll-row">
-    <!-- Pelisflix -->
     <a href="https://pelisflix.top/" target="_blank" rel="noopener noreferrer" class="media-card">
       <div class="poster-box">
         <span class="badge-tag">PELIS</span>
@@ -362,7 +369,6 @@
       <div class="media-meta">Estrenos Cine</div>
     </a>
 
-    <!-- Seriesflix HD -->
     <a href="https://seriesflixhd.win/" target="_blank" rel="noopener noreferrer" class="media-card">
       <div class="poster-box">
         <span class="badge-tag">SERIES</span>
@@ -372,7 +378,6 @@
       <div class="media-meta">Streaming</div>
     </a>
 
-    <!-- Anime Online -->
     <a href="https://animeonline.ninja/" target="_blank" rel="noopener noreferrer" class="media-card">
       <div class="poster-box">
         <span class="badge-tag">ANIME</span>
@@ -383,38 +388,47 @@
     </a>
   </div>
 
-  <!-- NAVBAR FLOTANTE -->
+  <!-- NAVEGACIÓN INFERIOR -->
   <nav class="navbar">
-    <a href="#" class="nav-link active">
+    <a href="#sec-inicio" class="nav-link active">
       <i class="fa-solid fa-house"></i>
       <span>Inicio</span>
     </a>
-    <a href="#" class="nav-link">
+    <a href="#sec-deportes" class="nav-link">
       <i class="fa-solid fa-futbol"></i>
       <span>Deportes</span>
     </a>
-    <a href="#" class="nav-link">
+    <a href="#sec-cine" class="nav-link">
       <i class="fa-solid fa-film"></i>
       <span>Cine</span>
     </a>
   </nav>
 
-  <!-- JS FILTRADO -->
+  <!-- JS DE FILTRADO Y NAVEGACIÓN -->
   <script>
     function filtrar() {
-      const input = document.getElementById('searchInput').value.toLowerCase();
-      const cards = document.getElementsByClassName('media-card');
+      const input = document.getElementById('searchInput').value.toLowerCase().trim();
+      const cards = document.querySelectorAll('.media-card');
       
-      for (let card of cards) {
+      cards.forEach(card => {
         const title = card.querySelector('.media-title').innerText.toLowerCase();
-        if (title.includes(input)) {
-          card.style.display = "block";
-        } else {
-          card.style.display = "none";
-        }
-      }
+        card.style.display = title.includes(input) ? "block" : "none";
+      });
     }
+
+    document.querySelectorAll('.nav-link').forEach(link => {
+      link.addEventListener('click', function(e) {
+        e.preventDefault();
+        document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+        this.classList.add('active');
+        
+        const targetId = this.getAttribute('href').substring(1);
+        const targetElem = document.getElementById(targetId);
+        if (targetElem) {
+          targetElem.scrollIntoView({ behavior: 'smooth' });
+        }
+      });
+    });
   </script>
 </body>
-          </html>
-          
+</html>
