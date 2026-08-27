@@ -2,153 +2,230 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mi Hub de Contenido</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>StreamHub Premium</title>
   <style>
+    /* VARIABLES DE DISEÑO PREMIUM */
+    :root {
+      --bg-dark: #070a13; /* Fondo ultra oscuro profundo */
+      --card-bg: rgba(30, 41, 59, 0.4); /* Fondo tarjeta efecto cristal */
+      --card-border: rgba(255, 255, 255, 0.05); /* Borde casi invisible */
+      --accent: #00e5ff; /* Azul neón vibrante sutil */
+      --text-main: #f1f5f9; /* Blanco suave */
+      --text-muted: #94a3b8; /* Gris azulado para títulos */
+      --ease: cubic-bezier(0.23, 1, 0.32, 1); /* Animación suave Apple-style */
+    }
+
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Roboto', sans-serif;
+      -webkit-tap-highlight-color: transparent; /* Quita el flash azul al tocar en móvil */
     }
+
     body {
-      background-color: #0d1424;
-      color: #ffffff;
-      padding: 20px;
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      padding: 30px 20px;
       display: flex;
       flex-direction: column;
       align-items: center;
       min-height: 100vh;
+      overflow-x: hidden;
     }
+
+    /* TÍTULO PRINCIPAL ESTÉTICO */
     h1 {
-      color: #38bdf8;
-      font-size: 1.6rem;
-      margin-bottom: 25px;
+      font-size: 1.8rem;
+      font-weight: 800;
+      letter-spacing: -1px;
+      margin-bottom: 35px;
       margin-top: 10px;
+      background: linear-gradient(135deg, #ffffff 0%, #a5b4fc 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
       text-align: center;
     }
-    .section-title {
-      align-self: flex-start;
+
+    /* SECCIONES MINIMALISTAS */
+    .section-container {
       width: 100%;
-      max-width: 500px;
-      font-size: 0.9rem;
-      font-weight: bold;
-      color: #94a3b8;
-      letter-spacing: 1px;
-      margin-top: 15px;
-      margin-bottom: 15px;
-      border-bottom: 1px solid #1e293b;
-      padding-bottom: 5px;
+      max-width: 480px;
+      margin-bottom: 30px;
     }
+
+    .section-title {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 15px;
+      padding-left: 5px;
+    }
+
+    /* GRID DE TARJETAS MODERNAS */
     .grid {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 15px;
-      width: 100%;
-      max-width: 500px;
-      margin-bottom: 10px;
+      grid-template-columns: 1fr; /* Una columna por fila para estética horizontal */
+      gap: 12px;
     }
+
+    /* TARJETA PREMIUM CON EFECTO CRISTAL */
     .card {
-      background-color: #1a2638;
-      border: 1px solid #28374d;
-      border-radius: 12px;
-      padding: 20px 10px;
+      background-color: var(--card-bg);
+      backdrop-filter: blur(10px); /* Efecto desenfoque de cristal */
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 18px 20px;
       display: flex;
-      flex-direction: column;
+      align-items: center; /* Alineación horizontal */
+      text-decoration: none;
+      color: var(--text-main);
+      transition: all 0.4s var(--ease);
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Brillo sutil superior en la tarjeta */
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+    }
+
+    /* Interacción al tocar (más sutil) */
+    .card:active {
+      transform: scale(0.97) translateY(1px);
+      background-color: rgba(30, 41, 59, 0.6);
+      border-color: rgba(255, 255, 255, 0.1);
+    }
+
+    /* Iconos modernos y unificados */
+    .card .icon-container {
+      width: 45px;
+      height: 45px;
+      background-color: rgba(0, 229, 255, 0.1); /* Fondo icono muy suave */
+      border-radius: 12px;
+      display: flex;
       align-items: center;
       justify-content: center;
-      text-decoration: none;
-      color: #ffffff;
-      transition: transform 0.2s, background-color 0.2s;
+      margin-right: 18px;
+      font-size: 1.4rem;
+      color: var(--accent);
+      flex-shrink: 0; /* Evita que el icono se encoja */
     }
-    .card:active {
-      transform: scale(0.96);
-      background-color: #24344d;
+
+    /* Estilo para el icono de Fútbol (Balón limpio) */
+    .icon-ball {
+      filter: drop-shadow(0 0 5px rgba(0, 229, 255, 0.3));
     }
-    .card .icon {
-      font-size: 2rem;
-      margin-bottom: 10px;
-      color: #38bdf8;
-    }
+
+    /* Texto de la tarjeta */
     .card span {
-      font-size: 0.95rem;
+      font-size: 1rem;
       font-weight: 600;
-      text-align: center;
+      letter-spacing: -0.3px;
+      flex-grow: 1;
     }
+
+    /* Flecha sutil a la derecha */
+    .card::after {
+      content: '→';
+      font-size: 1.1rem;
+      color: rgba(255,255,255,0.2);
+      transition: all 0.3s var(--ease);
+    }
+
+    .card:active::after {
+      color: var(--accent);
+      transform: translateX(3px);
+    }
+
   </style>
 </head>
 <body>
 
-  <h1>Mi Hub de Contenido</h1>
+  <h1>StreamHub Premium</h1>
 
-  <!-- FÚTBOL Y DEPORTES -->
-  <div class="section-title">FÚTBOL Y DEPORTES</div>
-  <div class="grid">
-    <!-- Botón directo a tu APK FCTV33 -->
-    <a href="intent:#Intent;launchFlags=0x10000000;component=com.fctv77.app/com.rblive.launcher.splash.SplashActivity;end" class="card">
-      <div class="icon">⚽</div>
-      <span>FC TV 33 HD</span>
-    </a>
+  <!-- SECCIÓN DEPORTES -->
+  <div class="section-container">
+    <div class="section-title">Deportes Live</div>
+    <div class="grid">
+      <!-- Abre la app FCTV33 instalada -->
+      <a href="intent:#Intent;launchFlags=0x10000000;component=com.fctv77.app/com.rblive.launcher.splash.SplashActivity;end" class="card">
+        <div class="icon-container icon-ball">⚽</div>
+        <span>FC TV 33 HD (App)</span>
+      </a>
 
-    <a href="https://futbollibre.net/" target="_blank" class="card">
-      <div class="icon">▶</div>
-      <span>Fútbol Libre TV</span>
-    </a>
+      <!-- Forzados a Brave -->
+      <a href="intent://futbollibre.net/#Intent;scheme=https;package=com.brave.browser;end" class="card">
+        <div class="icon-container icon-ball">⚽</div>
+        <span>Fútbol Libre TV</span>
+      </a>
 
-    <a href="https://alangulotvplay.net/" target="_blank" class="card">
-      <div class="icon">⚽</div>
-      <span>Alangulo TV</span>
-    </a>
+      <a href="intent://alangulotvplay.net/#Intent;scheme=https;package=com.brave.browser;end" class="card">
+        <div class="icon-container icon-ball">⚽</div>
+        <span>Alangulo TV</span>
+      </a>
 
-    <a href="https://pelotalibrehd.su/" target="_blank" class="card">
-      <div class="icon">⚽</div>
-      <span>Pelota Libre HD</span>
-    </a>
+      <a href="intent://pelotalibrehd.su/#Intent;scheme=https;package=com.brave.browser;end" class="card">
+        <div class="icon-container icon-ball">⚽</div>
+        <span>Pelota Libre HD</span>
+      </a>
 
-    <a href="https://rusticotv.la/" target="_blank" class="card">
-      <div class="icon">⚽</div>
-      <span>Rústico TV</span>
-    </a>
+      <a href="intent://rusticotv.la/#Intent;scheme=https;package=com.brave.browser;end" class="card">
+        <div class="icon-container icon-ball">⚽</div>
+        <span>Rústico TV</span>
+      </a>
 
-    <a href="https://futbolparatodos.st/" target="_blank" class="card">
-      <div class="icon">⚽</div>
-      <span>Fútbol Para Todos</span>
-    </a>
+      <a href="intent://futbolparatodos.st/#Intent;scheme=https;package=com.brave.browser;end" class="card">
+        <div class="icon-container icon-ball">⚽</div>
+        <span>Fútbol Para Todos</span>
+      </a>
 
-    <a href="https://rojadirectatv.ec/" target="_blank" class="card">
-      <div class="icon">⚽</div>
-      <span>Roja Directa</span>
-    </a>
+      <a href="intent://rojadirectatv.ec/#Intent;scheme=https;package=com.brave.browser;end" class="card">
+        <div class="icon-container icon-ball">⚽</div>
+        <span>Roja Directa</span>
+      </a>
 
-    <a href="https://www.pirlotv.world/" target="_blank" class="card">
-      <div class="icon">⚽</div>
-      <span>Pirlo TV</span>
-    </a>
+      <a href="intent://www.pirlotv.world/#Intent;scheme=https;package=com.brave.browser;end" class="card">
+        <div class="icon-container icon-ball">⚽</div>
+        <span>Pirlo TV</span>
+      </a>
 
-    <a href="https://elitegoltv.site/" target="_blank" class="card">
-      <div class="icon">⚽</div>
-      <span>Elitegol TV</span>
-    </a>
+      <a href="intent://elitegoltv.site/#Intent;scheme=https;package=com.brave.browser;end" class="card">
+        <div class="icon-container icon-ball">⚽</div>
+        <span>Elitegol TV</span>
+      </a>
+    </div>
   </div>
 
-  <!-- CINE, SERIES Y ANIME -->
-  <div class="section-title">CINE, SERIES Y ANIME</div>
-  <div class="grid">
-    <a href="https://pelisflix.top/" target="_blank" class="card">
-      <div class="icon">🎬</div>
-      <span>Pelisflix</span>
-    </a>
+  <!-- SECCIÓN ENTRETENIMIENTO -->
+  <div class="section-container">
+    <div class="section-title">Cine & Series</div>
+    <div class="grid">
+      <a href="intent://pelisflix.top/#Intent;scheme=https;package=com.brave.browser;end" class="card">
+        <div class="icon-container">🎬</div>
+        <span>Pelisflix Ultra</span>
+      </a>
 
-    <!-- Enlace actualizado de Seriesflix -->
-    <a href="https://seriesflixhd.win/" target="_blank" class="card">
-      <div class="icon">📺</div>
-      <span>Seriesflix</span>
-    </a>
+      <a href="intent://seriesflixhd.win/#Intent;scheme=https;package=com.brave.browser;end" class="card">
+        <div class="icon-container">📺</div>
+        <span>Seriesflix HD</span>
+      </a>
 
-    <a href="https://animeonline.ninja/" target="_blank" class="card">
-      <div class="icon">▶</div>
-      <span>Anime Online</span>
-    </a>
+      <a href="intent://animeonline.ninja/#Intent;scheme=https;package=com.brave.browser;end" class="card">
+        <div class="icon-container">⚔️</div>
+        <span>Anime Online Ninja</span>
+      </a>
+    </div>
   </div>
 
 </body>
