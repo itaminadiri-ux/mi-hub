@@ -2,25 +2,27 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>StreamHub Pro</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>StreamHub Ultra</title>
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
   <style>
     :root {
-      --bg-main: #07090e;
+      --bg-main: #090d14;
       --bg-surface: rgba(255, 255, 255, 0.03);
-      --card-border: rgba(255, 255, 255, 0.08);
+      --glass-bg: rgba(15, 23, 42, 0.65);
+      --glass-border: rgba(255, 255, 255, 0.08);
       --accent: #6366f1;
-      --accent-glow: rgba(99, 102, 241, 0.35);
+      --accent-glow: rgba(99, 102, 241, 0.4);
       --text-main: #f8fafc;
       --text-muted: #94a3b8;
-      --radius-main: 20px;
+      --radius-card: 16px;
       --radius-pill: 9999px;
+      --ease-elastic: cubic-bezier(0.34, 1.56, 0.64, 1);
     }
 
     * { 
@@ -29,17 +31,35 @@
       padding: 0; 
       font-family: 'Plus Jakarta Sans', -apple-system, sans-serif; 
       -webkit-tap-highlight-color: transparent;
+      user-select: none;
     }
+
+    html { scroll-behavior: smooth; }
 
     body { 
       background-color: var(--bg-main); 
       color: var(--text-main); 
-      padding-bottom: 100px; 
+      padding-bottom: 120px; 
       overflow-x: hidden;
       -webkit-font-smoothing: antialiased; 
+      position: relative;
     }
 
-    /* HEADER SLIM */
+    /* 3. MESH GRADIENT DYNÁMICO DE FONDO */
+    body::before {
+      content: '';
+      position: fixed;
+      top: -15%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 140%;
+      height: 550px;
+      background: radial-gradient(circle at 50% 0%, rgba(99, 102, 241, 0.18), rgba(15, 23, 42, 0.05) 60%, transparent 80%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* HEADER GLASSMORPHISM */
     header {
       position: sticky; 
       top: 0; 
@@ -47,11 +67,11 @@
       display: flex; 
       align-items: center; 
       justify-content: space-between;
-      padding: 12px 20px;
-      background: rgba(7, 9, 14, 0.85);
-      backdrop-filter: blur(20px); 
-      -webkit-backdrop-filter: blur(20px);
-      border-bottom: 1px solid var(--card-border);
+      padding: calc(12px + env(safe-area-inset-top, 0px)) 20px 12px 20px;
+      background: rgba(9, 13, 20, 0.75);
+      backdrop-filter: blur(24px); 
+      -webkit-backdrop-filter: blur(24px);
+      border-bottom: 1px solid var(--glass-border);
     }
 
     .brand { 
@@ -59,42 +79,48 @@
       align-items: center; 
       gap: 10px; 
       font-weight: 800; 
-      font-size: 1.1rem; 
+      font-size: 1.05rem; 
       letter-spacing: -0.02em;
+      position: relative;
+      z-index: 1;
     }
 
     .brand-logo { 
       width: 32px; 
       height: 32px; 
       background: linear-gradient(135deg, var(--accent), #4f46e5); 
-      border-radius: 8px; 
+      border-radius: 10px; 
       display: flex; 
       align-items: center; 
       justify-content: center; 
       color: #fff;
-      box-shadow: 0 4px 12px var(--accent-glow); 
+      box-shadow: 0 4px 14px var(--accent-glow); 
+      font-size: 0.85rem;
     }
 
     .search-box { 
       position: relative; 
       width: 50%; 
-      max-width: 240px; 
+      max-width: 200px; 
+      z-index: 1;
     }
 
     .search-input { 
       width: 100%; 
       padding: 8px 14px 8px 36px; 
       background: rgba(255, 255, 255, 0.05); 
-      border: 1px solid var(--card-border); 
+      border: 1px solid rgba(255, 255, 255, 0.08); 
       border-radius: var(--radius-pill); 
       color: #fff; 
-      font-size: 0.8rem; 
+      font-size: 0.78rem; 
       outline: none; 
-      transition: border-color 0.2s;
+      transition: all 0.3s var(--ease-elastic);
     }
 
     .search-input:focus {
+      background: rgba(255, 255, 255, 0.1);
       border-color: var(--accent);
+      box-shadow: 0 0 16px var(--accent-glow);
     }
 
     .search-icon { 
@@ -107,29 +133,16 @@
       pointer-events: none;
     }
 
-    .container { 
-      max-width: 1200px; 
-      margin: 0 auto; 
-      padding: 16px 0; 
-    }
-
-    /* FIX 1: HERO CON FALLBACK Y GRADIENTE PRO */
-    .hero-container { 
-      padding: 0 16px; 
-      margin-bottom: 28px; 
-    }
-
+    /* HERO BANNER */
     .hero {
       position: relative; 
       width: 100%; 
-      min-height: 340px; 
-      border-radius: var(--radius-main); 
-      overflow: hidden;
-      border: 1px solid var(--card-border); 
+      min-height: 400px; 
       display: flex; 
       align-items: flex-end;
-      background: linear-gradient(135deg, #1e1b4b 0%, #0f172a 50%, #07090e 100%);
-      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.6);
+      background: #0f172a;
+      overflow: hidden;
+      z-index: 1;
     }
 
     .hero-img { 
@@ -137,15 +150,17 @@
       inset: 0; 
       width: 100%; 
       height: 100%; 
-      object-fit: cover; 
+      object-fit: cover;
+      filter: brightness(0.85);
+      transition: transform 0.6s ease;
     }
 
     .hero-overlay {
       position: relative; 
       z-index: 2; 
       width: 100%; 
-      padding: 24px;
-      background: linear-gradient(0deg, rgba(7,9,14,0.98) 0%, rgba(7,9,14,0.6) 65%, transparent 100%);
+      padding: 40px 20px 24px 20px;
+      background: linear-gradient(180deg, transparent 0%, rgba(9,13,20,0.4) 30%, rgba(9,13,20,1) 100%);
     }
 
     .hero-badge { 
@@ -153,183 +168,240 @@
       align-items: center; 
       gap: 6px; 
       padding: 4px 10px; 
-      background: rgba(99, 102, 241, 0.25); 
-      border: 1px solid var(--accent); 
+      background: rgba(99, 102, 241, 0.15); 
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(99, 102, 241, 0.3); 
       border-radius: var(--radius-pill); 
       font-size: 0.65rem; 
       font-weight: 700; 
-      color: #a5b4fc; 
-      margin-bottom: 8px; 
+      color: #818cf8; 
+      margin-bottom: 10px; 
       text-transform: uppercase;
+      letter-spacing: 0.05em;
     }
 
     .hero-title { 
-      font-size: 1.6rem; 
+      font-size: 1.8rem; 
       font-weight: 800; 
-      line-height: 1.2; 
+      line-height: 1.1; 
       margin-bottom: 6px; 
       letter-spacing: -0.02em;
     }
 
     .hero-subtitle { 
-      font-size: 0.8rem; 
+      font-size: 0.82rem; 
       color: var(--text-muted); 
-      margin-bottom: 16px; 
-      max-width: 450px; 
+      margin-bottom: 18px; 
+      max-width: 480px; 
       line-height: 1.4;
     }
     
-    .btn { 
+    .btn-glass { 
       display: inline-flex; 
       align-items: center; 
-      gap: 8px; 
-      padding: 10px 20px; 
+      gap: 10px; 
+      padding: 12px 22px; 
       border-radius: var(--radius-pill); 
       font-size: 0.85rem; 
       font-weight: 700; 
       text-decoration: none; 
-      transition: transform 0.2s;
+      color: #fff;
+      background: rgba(99, 102, 241, 0.2);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--accent);
+      box-shadow: 0 4px 20px var(--accent-glow);
+      transition: all 0.25s var(--ease-elastic);
     }
 
-    .btn-primary { 
-      background: #fff; 
-      color: #000; 
+    .btn-glass:active { 
+      transform: scale(0.94); 
+      background: var(--accent);
     }
 
-    .btn-primary:active { 
-      transform: scale(0.96); 
+    /* CONTENEDOR Y CARRUSELES */
+    .container { 
+      max-width: 1200px; 
+      margin: 0 auto; 
+      position: relative;
+      z-index: 1;
     }
 
-    /* CARRUSELES CON PEEK EFFECT */
     .section-title { 
       font-size: 1.1rem; 
       font-weight: 700; 
-      padding: 0 16px; 
-      margin-bottom: 12px; 
+      padding: 24px 20px 12px 20px; 
       letter-spacing: -0.01em;
+      scroll-margin-top: 70px;
     }
 
+    /* 5. SCROLL FADE MASK EN CARRUSELES */
     .scroll-container { 
       display: flex; 
-      gap: 12px; 
+      gap: 16px; 
       overflow-x: auto; 
-      padding: 0 16px 16px 16px; 
+      padding: 12px 20px 20px 20px; 
       scrollbar-width: none; 
       scroll-snap-type: x mandatory;
+      mask-image: linear-gradient(to right, black 85%, transparent 100%);
+      -webkit-mask-image: linear-gradient(to right, black 85%, transparent 100%);
     }
 
-    .scroll-container::-webkit-scrollbar { 
-      display: none; 
+    .scroll-container::-webkit-scrollbar { display: none; }
+
+    /* 4. SKELETON SCREEN ANIMATION */
+    @keyframes shimmer {
+      0% { background-position: -200% 0; }
+      100% { background-position: 200% 0; }
     }
 
-    /* CARDS CON SCRIM OSCURO REFORZADO */
+    /* TARJETAS CON AMBIENT LIGHT & FEEDBACK ELASTIC */
+    .card-wrapper {
+      position: relative;
+      flex-shrink: 0;
+      scroll-snap-align: start;
+    }
+
+    /* 1. AMBIENT GLOW BACKDROP */
+    .card-wrapper::before {
+      content: '';
+      position: absolute;
+      inset: 4px;
+      border-radius: var(--radius-card);
+      background-image: var(--card-img);
+      background-size: cover;
+      background-position: center;
+      filter: blur(16px) opacity(0.45);
+      z-index: 0;
+      transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+
     .card {
       position: relative; 
-      flex-shrink: 0; 
-      border-radius: 14px; 
+      z-index: 1;
+      display: block;
+      border-radius: var(--radius-card); 
       overflow: hidden; 
-      border: 1px solid var(--card-border);
-      background: #121826; 
+      border: 1px solid var(--glass-border);
+      background: linear-gradient(90deg, #111827 25%, #1f293d 50%, #111827 75%);
+      background-size: 200% 100%;
+      animation: shimmer 1.8s infinite;
       text-decoration: none; 
       color: #fff;
-      scroll-snap-align: start;
-      transition: transform 0.25s ease;
+      /* 2. FEEDBACK TÁCTIL ELASTICO */
+      transition: transform 0.25s var(--ease-elastic), border-color 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .card.loaded {
+      animation: none;
+      background: #111827;
     }
 
     .card:active {
-      transform: scale(0.97);
+      transform: scale(0.94);
+      border-color: var(--accent);
+      box-shadow: 0 0 20px var(--accent-glow);
     }
 
-    .card-landscape { 
-      width: 220px; 
-      height: 124px; 
-    }
-
-    .card-portrait { 
-      width: 130px; 
-      height: 195px; 
-    }
+    .card-landscape { width: 220px; height: 124px; }
+    .card-portrait { width: 130px; height: 195px; }
     
     .card img { 
       width: 100%; 
       height: 100%; 
       object-fit: cover; 
+      display: block;
+      opacity: 0;
+      transition: opacity 0.4s ease;
     }
 
-    /* FIX 2: SCRIM OSCURO PARA LEGIBILIDAD REAL */
+    .card img.loaded {
+      opacity: 1;
+    }
+
     .card-content {
       position: absolute; 
       inset: 0; 
-      padding: 12px; 
+      padding: 10px 12px; 
       display: flex; 
       flex-direction: column; 
       justify-content: space-between;
-      background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(7,9,14,0.95) 85%);
+      background: linear-gradient(180deg, rgba(0,0,0,0) 20%, rgba(9,13,20,0.95) 90%);
+      z-index: 2;
     }
 
     .card-badge { 
       align-self: flex-start; 
-      padding: 3px 8px; 
-      background: rgba(0,0,0,0.6); 
-      backdrop-filter: blur(6px); 
-      -webkit-backdrop-filter: blur(6px);
+      padding: 3px 7px; 
+      background: rgba(15, 23, 42, 0.6); 
+      backdrop-filter: blur(8px); 
+      -webkit-backdrop-filter: blur(8px);
       border-radius: 6px; 
-      font-size: 0.6rem; 
+      font-size: 0.58rem; 
       font-weight: 700; 
-      border: 1px solid rgba(255,255,255,0.15); 
+      letter-spacing: 0.04em;
+      border: 1px solid rgba(255, 255, 255, 0.12); 
     }
 
     .card-title { 
-      font-size: 0.85rem; 
-      font-weight: 700; 
+      font-size: 0.82rem; 
+      font-weight: 600; 
       white-space: nowrap; 
       overflow: hidden; 
       text-overflow: ellipsis; 
-      text-shadow: 0 1px 3px rgba(0,0,0,0.8);
     }
 
     .card-subtitle { 
       font-size: 0.68rem; 
-      color: #cbd5e1; 
-      text-shadow: 0 1px 2px rgba(0,0,0,0.8);
+      color: var(--text-muted); 
+      margin-top: 1px;
     }
 
-    /* NAVBAR FLOTANTE CON PADDING ERGONÓMICO */
+    /* BOTTOM NAV FLOTANTE */
     .bottom-nav {
       position: fixed; 
-      bottom: 16px; 
+      bottom: calc(16px + env(safe-area-inset-bottom, 0px)); 
       left: 50%; 
       transform: translateX(-50%); 
       z-index: 1000;
       display: flex; 
-      gap: 4px; 
-      padding: 6px; 
-      background: rgba(18, 24, 38, 0.88); 
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border: 1px solid var(--card-border); 
+      gap: 8px; 
+      padding: 6px 12px; 
+      background: var(--glass-bg); 
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border: 1px solid var(--glass-border); 
       border-radius: var(--radius-pill); 
-      box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+      box-shadow: 0 16px 32px rgba(0, 0, 0, 0.4);
     }
 
-    /* FIX 3: NAV ITEM PADDING RESTRINGIDO */
     .nav-item { 
       display: flex; 
+      flex-direction: column;
       align-items: center; 
-      gap: 6px; 
-      padding: 6px 14px; 
-      border-radius: var(--radius-pill); 
+      gap: 3px; 
+      padding: 6px 16px; 
       color: var(--text-muted); 
       text-decoration: none; 
-      font-size: 0.75rem; 
-      font-weight: 700; 
-      transition: all 0.2s ease;
+      font-size: 0.68rem; 
+      font-weight: 600; 
+      position: relative;
+      transition: color 0.25s ease;
     }
 
-    .nav-item.active { 
-      background: var(--accent); 
-      color: #fff; 
-      box-shadow: 0 2px 10px var(--accent-glow); 
+    .nav-item i { font-size: 1.05rem; }
+    .nav-item.active { color: #fff; }
+
+    .nav-item.active::after {
+      content: '';
+      position: absolute;
+      bottom: 2px;
+      width: 4px;
+      height: 4px;
+      background: var(--accent);
+      border-radius: 50%;
+      box-shadow: 0 0 8px var(--accent);
     }
   </style>
 </head>
@@ -347,169 +419,126 @@
     </div>
   </header>
 
+  <!-- HERO BANNER -->
+  <div id="sec-inicio" class="hero">
+    <img class="hero-img" src="https://picsum.photos/id/1059/800/400" alt="FC TV Banner">
+    <div class="hero-overlay">
+      <span class="hero-badge"><i class="fa-solid fa-bolt"></i> Nativa</span>
+      <h1 class="hero-title">FC TV 33 HD</h1>
+      <p class="hero-subtitle">Transmisión deportiva en vivo full HD directamente en tu dispositivo.</p>
+      <a href="intent:#Intent;launchFlags=0x10000000;component=com.fctv77.app/com.rblive.launcher.splash.SplashActivity;end" class="btn-glass">
+        <i class="fa-solid fa-play"></i> Abrir Aplicación
+      </a>
+    </div>
+  </div>
+
   <div class="container">
     
-    <!-- HERO RESPONSIVE CON GRADIENT BACKUP -->
-    <div class="hero-container" id="sec-inicio">
-      <section class="hero">
-        <img class="hero-img" src="https://picsum.photos/id/1059/800/400" alt="FC TV Banner" onerror="this.style.display='none'">
-        <div class="hero-overlay">
-          <span class="hero-badge"><i class="fa-solid fa-bolt"></i> NATIVA</span>
-          <h1 class="hero-title">FC TV 33 HD</h1>
-          <p class="hero-subtitle">Transmisión deportiva en vivo full HD directamente en tu dispositivo.</p>
-          <a href="intent:#Intent;launchFlags=0x10000000;component=com.fctv77.app/com.rblive.launcher.splash.SplashActivity;end" class="btn btn-primary">
-            <i class="fa-solid fa-play"></i> Abrir Aplicación
-          </a>
-        </div>
-      </section>
-    </div>
-
     <!-- SECCIÓN DEPORTES -->
     <h2 class="section-title" id="sec-deportes">Deportes en Directo</h2>
     <div class="scroll-container">
       
-      <a href="intent:#Intent;launchFlags=0x10000000;component=com.fctv77.app/com.rblive.launcher.splash.SplashActivity;end" class="card card-landscape media-card">
-        <img src="https://picsum.photos/id/1058/400/225" alt="FC TV 33 HD">
-        <div class="card-content">
-          <span class="card-badge">APK</span>
-          <div>
-            <div class="card-title">FC TV 33 HD</div>
-            <div class="card-subtitle">App Nativa</div>
+      <div class="card-wrapper media-card" style="--card-img: url('https://picsum.photos/id/1058/400/225');">
+        <a href="intent:#Intent;launchFlags=0x10000000;component=com.fctv77.app/com.rblive.launcher.splash.SplashActivity;end" class="card card-landscape">
+          <img src="https://picsum.photos/id/1058/400/225" alt="FC TV 33 HD" onload="onImgLoad(this)">
+          <div class="card-content">
+            <span class="card-badge">APK</span>
+            <div>
+              <div class="card-title">FC TV 33 HD</div>
+              <div class="card-subtitle">App Nativa</div>
+            </div>
           </div>
-        </div>
-      </a>
+        </a>
+      </div>
 
-      <a href="https://futbollibre.net/" target="_blank" rel="noopener noreferrer" class="card card-landscape media-card">
-        <img src="https://picsum.photos/id/1084/400/225" alt="Fútbol Libre">
-        <div class="card-content">
-          <span class="card-badge">WEB</span>
-          <div>
-            <div class="card-title">Fútbol Libre TV</div>
-            <div class="card-subtitle">Señal HD Global</div>
+      <div class="card-wrapper media-card" style="--card-img: url('https://picsum.photos/id/1084/400/225');">
+        <a href="https://futbollibre.net/" target="_blank" rel="noopener noreferrer" class="card card-landscape">
+          <img src="https://picsum.photos/id/1084/400/225" alt="Fútbol Libre" onload="onImgLoad(this)">
+          <div class="card-content">
+            <span class="card-badge">WEB</span>
+            <div>
+              <div class="card-title">Fútbol Libre TV</div>
+              <div class="card-subtitle">Señal HD Global</div>
+            </div>
           </div>
-        </div>
-      </a>
+        </a>
+      </div>
 
-      <a href="https://alangulotvplay.net/" target="_blank" rel="noopener noreferrer" class="card card-landscape media-card">
-        <img src="https://picsum.photos/id/1069/400/225" alt="Alangulo">
-        <div class="card-content">
-          <span class="card-badge">WEB</span>
-          <div>
-            <div class="card-title">Alangulo TV</div>
-            <div class="card-subtitle">Canal Alternativo</div>
+      <div class="card-wrapper media-card" style="--card-img: url('https://picsum.photos/id/1069/400/225');">
+        <a href="https://alangulotvplay.net/" target="_blank" rel="noopener noreferrer" class="card card-landscape">
+          <img src="https://picsum.photos/id/1069/400/225" alt="Alangulo" onload="onImgLoad(this)">
+          <div class="card-content">
+            <span class="card-badge">WEB</span>
+            <div>
+              <div class="card-title">Alangulo TV</div>
+              <div class="card-subtitle">Canal Alternativo</div>
+            </div>
           </div>
-        </div>
-      </a>
+        </a>
+      </div>
 
-      <a href="https://pelotalibrehd.su/" target="_blank" rel="noopener noreferrer" class="card card-landscape media-card">
-        <img src="https://picsum.photos/id/1074/400/225" alt="Pelota Libre HD">
-        <div class="card-content">
-          <span class="card-badge">WEB</span>
-          <div>
-            <div class="card-title">Pelota Libre HD</div>
-            <div class="card-subtitle">Alta Definición</div>
+      <div class="card-wrapper media-card" style="--card-img: url('https://picsum.photos/id/1074/400/225');">
+        <a href="https://pelotalibrehd.su/" target="_blank" rel="noopener noreferrer" class="card card-landscape">
+          <img src="https://picsum.photos/id/1074/400/225" alt="Pelota Libre HD" onload="onImgLoad(this)">
+          <div class="card-content">
+            <span class="card-badge">WEB</span>
+            <div>
+              <div class="card-title">Pelota Libre HD</div>
+              <div class="card-subtitle">Alta Definición</div>
+            </div>
           </div>
-        </div>
-      </a>
-
-      <a href="https://rusticotv.la/" target="_blank" rel="noopener noreferrer" class="card card-landscape media-card">
-        <img src="https://picsum.photos/id/1050/400/225" alt="Rústico TV">
-        <div class="card-content">
-          <span class="card-badge">WEB</span>
-          <div>
-            <div class="card-title">Rústico TV</div>
-            <div class="card-subtitle">Deportes en Vivo</div>
-          </div>
-        </div>
-      </a>
-
-      <a href="https://futbolparatodos.st/" target="_blank" rel="noopener noreferrer" class="card card-landscape media-card">
-        <img src="https://picsum.photos/id/1051/400/225" alt="Fútbol Para Todos">
-        <div class="card-content">
-          <span class="card-badge">WEB</span>
-          <div>
-            <div class="card-title">Fútbol Para Todos</div>
-            <div class="card-subtitle">Multiservidor</div>
-          </div>
-        </div>
-      </a>
-
-      <a href="https://rojadirectatv.ec/" target="_blank" rel="noopener noreferrer" class="card card-landscape media-card">
-        <img src="https://picsum.photos/id/1052/400/225" alt="Roja Directa">
-        <div class="card-content">
-          <span class="card-badge">WEB</span>
-          <div>
-            <div class="card-title">Roja Directa</div>
-            <div class="card-subtitle">Clásico Int.</div>
-          </div>
-        </div>
-      </a>
-
-      <a href="https://www.pirlotv.world/" target="_blank" rel="noopener noreferrer" class="card card-landscape media-card">
-        <img src="https://picsum.photos/id/1053/400/225" alt="Pirlo TV">
-        <div class="card-content">
-          <span class="card-badge">WEB</span>
-          <div>
-            <div class="card-title">Pirlo TV</div>
-            <div class="card-subtitle">Emisión en Vivo</div>
-          </div>
-        </div>
-      </a>
-
-      <a href="https://elitegoltv.site/" target="_blank" rel="noopener noreferrer" class="card card-landscape media-card">
-        <img src="https://picsum.photos/id/1054/400/225" alt="Elitegol TV">
-        <div class="card-content">
-          <span class="card-badge">WEB</span>
-          <div>
-            <div class="card-title">Elitegol TV</div>
-            <div class="card-subtitle">Enlaces Directos</div>
-          </div>
-        </div>
-      </a>
+        </a>
+      </div>
 
     </div>
 
     <!-- SECCIÓN CINE -->
-    <h2 class="section-title" id="sec-cine" style="margin-top: 12px;">Cine & Entretenimiento</h2>
+    <h2 class="section-title" id="sec-cine">Cine & Entretenimiento</h2>
     <div class="scroll-container">
       
-      <a href="https://pelisflix.top/" target="_blank" rel="noopener noreferrer" class="card card-portrait media-card">
-        <img src="https://picsum.photos/id/1060/300/450" alt="Pelisflix">
-        <div class="card-content">
-          <span class="card-badge">PELIS</span>
-          <div>
-            <div class="card-title">Pelisflix</div>
-            <div class="card-subtitle">Estrenos HD</div>
+      <div class="card-wrapper media-card" style="--card-img: url('https://picsum.photos/id/1060/300/450');">
+        <a href="https://pelisflix.top/" target="_blank" rel="noopener noreferrer" class="card card-portrait">
+          <img src="https://picsum.photos/id/1060/300/450" alt="Pelisflix" onload="onImgLoad(this)">
+          <div class="card-content">
+            <span class="card-badge">PELIS</span>
+            <div>
+              <div class="card-title">Pelisflix</div>
+              <div class="card-subtitle">Estrenos HD</div>
+            </div>
           </div>
-        </div>
-      </a>
+        </a>
+      </div>
 
-      <a href="https://seriesflixhd.win/" target="_blank" rel="noopener noreferrer" class="card card-portrait media-card">
-        <img src="https://picsum.photos/id/1062/300/450" alt="Seriesflix HD">
-        <div class="card-content">
-          <span class="card-badge">SERIES</span>
-          <div>
-            <div class="card-title">Seriesflix HD</div>
-            <div class="card-subtitle">Temporadas HD</div>
+      <div class="card-wrapper media-card" style="--card-img: url('https://picsum.photos/id/1062/300/450');">
+        <a href="https://seriesflixhd.win/" target="_blank" rel="noopener noreferrer" class="card card-portrait">
+          <img src="https://picsum.photos/id/1062/300/450" alt="Seriesflix HD" onload="onImgLoad(this)">
+          <div class="card-content">
+            <span class="card-badge">SERIES</span>
+            <div>
+              <div class="card-title">Seriesflix HD</div>
+              <div class="card-subtitle">Temporadas HD</div>
+            </div>
           </div>
-        </div>
-      </a>
+        </a>
+      </div>
 
-      <a href="https://animeonline.ninja/" target="_blank" rel="noopener noreferrer" class="card card-portrait media-card">
-        <img src="https://picsum.photos/id/1067/300/450" alt="Anime Online">
-        <div class="card-content">
-          <span class="card-badge">ANIME</span>
-          <div>
-            <div class="card-title">Anime Online</div>
-            <div class="card-subtitle">Episodios al día</div>
+      <div class="card-wrapper media-card" style="--card-img: url('https://picsum.photos/id/1067/300/450');">
+        <a href="https://animeonline.ninja/" target="_blank" rel="noopener noreferrer" class="card card-portrait">
+          <img src="https://picsum.photos/id/1067/300/450" alt="Anime Online" onload="onImgLoad(this)">
+          <div class="card-content">
+            <span class="card-badge">ANIME</span>
+            <div>
+              <div class="card-title">Anime Online</div>
+              <div class="card-subtitle">Episodios al día</div>
+            </div>
           </div>
-        </div>
-      </a>
+        </a>
+      </div>
 
     </div>
   </div>
 
-  <!-- BOTTOM BAR -->
+  <!-- BOTTOM NAV -->
   <nav class="bottom-nav">
     <a href="#sec-inicio" class="nav-item active">
       <i class="fa-solid fa-house"></i>
@@ -525,16 +554,28 @@
     </a>
   </nav>
 
-  <!-- JS -->
+  <!-- SCRIPTS -->
   <script>
+    // Gestión del Skeleton Loader y transición de carga
+    function onImgLoad(img) {
+      img.classList.add('loaded');
+      img.closest('.card').classList.add('loaded');
+    }
+
+    // Filtro manteniendo la estructura flex en contenedores wrappers
     function filtrar(query) {
       const q = query.toLowerCase().trim();
-      document.querySelectorAll('.media-card').forEach(card => {
-        const title = card.querySelector('.card-title').innerText.toLowerCase();
-        card.style.display = title.includes(q) ? "inline-block" : "none";
+      document.querySelectorAll('.media-card').forEach(wrapper => {
+        const title = wrapper.querySelector('.card-title').innerText.toLowerCase();
+        if (title.includes(q)) {
+          wrapper.style.removeProperty('display');
+        } else {
+          wrapper.style.display = 'none';
+        }
       });
     }
 
+    // Navegación fluida
     document.querySelectorAll('.nav-item').forEach(link => {
       link.addEventListener('click', function(e) {
         e.preventDefault();
@@ -545,7 +586,7 @@
         const targetElement = document.getElementById(targetId);
         
         if (targetElement) {
-          targetElement.scrollIntoView({ behavior: 'smooth' });
+          targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
       });
     });
