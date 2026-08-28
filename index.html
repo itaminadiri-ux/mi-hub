@@ -39,7 +39,7 @@
       -webkit-font-smoothing: antialiased; 
     }
 
-    /* Header Slim Moderno */
+    /* HEADER SLIM */
     header {
       position: sticky; 
       top: 0; 
@@ -113,7 +113,7 @@
       padding: 16px 0; 
     }
 
-    /* Hero Responsive Dinámico */
+    /* FIX 1: HERO CON FALLBACK Y GRADIENTE PRO */
     .hero-container { 
       padding: 0 16px; 
       margin-bottom: 28px; 
@@ -122,12 +122,13 @@
     .hero {
       position: relative; 
       width: 100%; 
-      min-height: 360px; 
+      min-height: 340px; 
       border-radius: var(--radius-main); 
       overflow: hidden;
       border: 1px solid var(--card-border); 
       display: flex; 
       align-items: flex-end;
+      background: linear-gradient(135deg, #1e1b4b 0%, #0f172a 50%, #07090e 100%);
       box-shadow: 0 16px 36px rgba(0, 0, 0, 0.6);
     }
 
@@ -144,7 +145,7 @@
       z-index: 2; 
       width: 100%; 
       padding: 24px;
-      background: linear-gradient(0deg, rgba(7,9,14,0.98) 0%, rgba(7,9,14,0.5) 65%, transparent 100%);
+      background: linear-gradient(0deg, rgba(7,9,14,0.98) 0%, rgba(7,9,14,0.6) 65%, transparent 100%);
     }
 
     .hero-badge { 
@@ -152,7 +153,7 @@
       align-items: center; 
       gap: 6px; 
       padding: 4px 10px; 
-      background: rgba(99, 102, 241, 0.2); 
+      background: rgba(99, 102, 241, 0.25); 
       border: 1px solid var(--accent); 
       border-radius: var(--radius-pill); 
       font-size: 0.65rem; 
@@ -187,7 +188,7 @@
       font-size: 0.85rem; 
       font-weight: 700; 
       text-decoration: none; 
-      transition: transform 0.2s, background-color 0.2s;
+      transition: transform 0.2s;
     }
 
     .btn-primary { 
@@ -199,7 +200,7 @@
       transform: scale(0.96); 
     }
 
-    /* Carruseles Inmersivos con Peek Effect */
+    /* CARRUSELES CON PEEK EFFECT */
     .section-title { 
       font-size: 1.1rem; 
       font-weight: 700; 
@@ -221,14 +222,14 @@
       display: none; 
     }
 
-    /* Cards Integradas (Texto sobre Imagen con Scrim Integrado) */
+    /* CARDS CON SCRIM OSCURO REFORZADO */
     .card {
       position: relative; 
       flex-shrink: 0; 
       border-radius: 14px; 
       overflow: hidden; 
       border: 1px solid var(--card-border);
-      background: var(--bg-surface); 
+      background: #121826; 
       text-decoration: none; 
       color: #fff;
       scroll-snap-align: start;
@@ -255,20 +256,21 @@
       object-fit: cover; 
     }
 
+    /* FIX 2: SCRIM OSCURO PARA LEGIBILIDAD REAL */
     .card-content {
       position: absolute; 
       inset: 0; 
-      padding: 10px; 
+      padding: 12px; 
       display: flex; 
       flex-direction: column; 
       justify-content: space-between;
-      background: linear-gradient(0deg, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.2) 60%, transparent 100%);
+      background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(7,9,14,0.95) 85%);
     }
 
     .card-badge { 
       align-self: flex-start; 
       padding: 3px 8px; 
-      background: rgba(0,0,0,0.5); 
+      background: rgba(0,0,0,0.6); 
       backdrop-filter: blur(6px); 
       -webkit-backdrop-filter: blur(6px);
       border-radius: 6px; 
@@ -278,19 +280,21 @@
     }
 
     .card-title { 
-      font-size: 0.8rem; 
+      font-size: 0.85rem; 
       font-weight: 700; 
       white-space: nowrap; 
       overflow: hidden; 
       text-overflow: ellipsis; 
+      text-shadow: 0 1px 3px rgba(0,0,0,0.8);
     }
 
     .card-subtitle { 
-      font-size: 0.65rem; 
-      color: var(--text-muted); 
+      font-size: 0.68rem; 
+      color: #cbd5e1; 
+      text-shadow: 0 1px 2px rgba(0,0,0,0.8);
     }
 
-    /* Bottom Bar Flotante Ergonómica */
+    /* NAVBAR FLOTANTE CON PADDING ERGONÓMICO */
     .bottom-nav {
       position: fixed; 
       bottom: 16px; 
@@ -300,19 +304,20 @@
       display: flex; 
       gap: 4px; 
       padding: 6px; 
-      background: rgba(18, 24, 38, 0.85); 
+      background: rgba(18, 24, 38, 0.88); 
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
       border: 1px solid var(--card-border); 
       border-radius: var(--radius-pill); 
-      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.6);
     }
 
+    /* FIX 3: NAV ITEM PADDING RESTRINGIDO */
     .nav-item { 
       display: flex; 
       align-items: center; 
       gap: 6px; 
-      padding: 8px 16px; 
+      padding: 6px 14px; 
       border-radius: var(--radius-pill); 
       color: var(--text-muted); 
       text-decoration: none; 
@@ -330,7 +335,7 @@
 </head>
 <body>
 
-  <!-- HEADER SLIM -->
+  <!-- HEADER -->
   <header>
     <div class="brand">
       <div class="brand-logo"><i class="fa-solid fa-play"></i></div>
@@ -343,10 +348,11 @@
   </header>
 
   <div class="container">
-    <!-- HERO RESPONSIVE CON MIN-HEIGHT Y FLEX -->
+    
+    <!-- HERO RESPONSIVE CON GRADIENT BACKUP -->
     <div class="hero-container" id="sec-inicio">
       <section class="hero">
-        <img class="hero-img" src="https://images.unsplash.com/photo-1508098682722-e99c43a406b2?q=80&w=800&auto=format&fit=crop" alt="Hero Background">
+        <img class="hero-img" src="https://picsum.photos/id/1059/800/400" alt="FC TV Banner" onerror="this.style.display='none'">
         <div class="hero-overlay">
           <span class="hero-badge"><i class="fa-solid fa-bolt"></i> NATIVA</span>
           <h1 class="hero-title">FC TV 33 HD</h1>
@@ -358,12 +364,12 @@
       </section>
     </div>
 
-    <!-- SECCIÓN DEPORTES (16:9 LANDSCAPE) -->
+    <!-- SECCIÓN DEPORTES -->
     <h2 class="section-title" id="sec-deportes">Deportes en Directo</h2>
     <div class="scroll-container">
       
       <a href="intent:#Intent;launchFlags=0x10000000;component=com.fctv77.app/com.rblive.launcher.splash.SplashActivity;end" class="card card-landscape media-card">
-        <img src="https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?q=80&w=400&auto=format&fit=crop" alt="FC TV 33 HD">
+        <img src="https://picsum.photos/id/1058/400/225" alt="FC TV 33 HD">
         <div class="card-content">
           <span class="card-badge">APK</span>
           <div>
@@ -374,7 +380,7 @@
       </a>
 
       <a href="https://futbollibre.net/" target="_blank" rel="noopener noreferrer" class="card card-landscape media-card">
-        <img src="https://images.unsplash.com/photo-1579952363873-27f3bade9f55?q=80&w=400&auto=format&fit=crop" alt="Fútbol Libre">
+        <img src="https://picsum.photos/id/1084/400/225" alt="Fútbol Libre">
         <div class="card-content">
           <span class="card-badge">WEB</span>
           <div>
@@ -385,7 +391,7 @@
       </a>
 
       <a href="https://alangulotvplay.net/" target="_blank" rel="noopener noreferrer" class="card card-landscape media-card">
-        <img src="https://images.unsplash.com/photo-1574629810360-7efbbe195018?q=80&w=400&auto=format&fit=crop" alt="Alangulo">
+        <img src="https://picsum.photos/id/1069/400/225" alt="Alangulo">
         <div class="card-content">
           <span class="card-badge">WEB</span>
           <div>
@@ -396,7 +402,7 @@
       </a>
 
       <a href="https://pelotalibrehd.su/" target="_blank" rel="noopener noreferrer" class="card card-landscape media-card">
-        <img src="https://images.unsplash.com/photo-1518091043644-c1d4457512c6?q=80&w=400&auto=format&fit=crop" alt="Pelota Libre HD">
+        <img src="https://picsum.photos/id/1074/400/225" alt="Pelota Libre HD">
         <div class="card-content">
           <span class="card-badge">WEB</span>
           <div>
@@ -407,7 +413,7 @@
       </a>
 
       <a href="https://rusticotv.la/" target="_blank" rel="noopener noreferrer" class="card card-landscape media-card">
-        <img src="https://images.unsplash.com/photo-1508098682722-e99c43a406b2?q=80&w=400&auto=format&fit=crop" alt="Rústico TV">
+        <img src="https://picsum.photos/id/1050/400/225" alt="Rústico TV">
         <div class="card-content">
           <span class="card-badge">WEB</span>
           <div>
@@ -418,7 +424,7 @@
       </a>
 
       <a href="https://futbolparatodos.st/" target="_blank" rel="noopener noreferrer" class="card card-landscape media-card">
-        <img src="https://images.unsplash.com/photo-1431324155629-1a6deb1dec8d?q=80&w=400&auto=format&fit=crop" alt="Fútbol Para Todos">
+        <img src="https://picsum.photos/id/1051/400/225" alt="Fútbol Para Todos">
         <div class="card-content">
           <span class="card-badge">WEB</span>
           <div>
@@ -429,7 +435,7 @@
       </a>
 
       <a href="https://rojadirectatv.ec/" target="_blank" rel="noopener noreferrer" class="card card-landscape media-card">
-        <img src="https://images.unsplash.com/photo-1522778119026-d647f0596c20?q=80&w=400&auto=format&fit=crop" alt="Roja Directa">
+        <img src="https://picsum.photos/id/1052/400/225" alt="Roja Directa">
         <div class="card-content">
           <span class="card-badge">WEB</span>
           <div>
@@ -440,7 +446,7 @@
       </a>
 
       <a href="https://www.pirlotv.world/" target="_blank" rel="noopener noreferrer" class="card card-landscape media-card">
-        <img src="https://images.unsplash.com/photo-1517927033932-b3d18e61fb3a?q=80&w=400&auto=format&fit=crop" alt="Pirlo TV">
+        <img src="https://picsum.photos/id/1053/400/225" alt="Pirlo TV">
         <div class="card-content">
           <span class="card-badge">WEB</span>
           <div>
@@ -451,7 +457,7 @@
       </a>
 
       <a href="https://elitegoltv.site/" target="_blank" rel="noopener noreferrer" class="card card-landscape media-card">
-        <img src="https://images.unsplash.com/photo-1560272564-c83b66b1ad12?q=80&w=400&auto=format&fit=crop" alt="Elitegol TV">
+        <img src="https://picsum.photos/id/1054/400/225" alt="Elitegol TV">
         <div class="card-content">
           <span class="card-badge">WEB</span>
           <div>
@@ -463,12 +469,12 @@
 
     </div>
 
-    <!-- SECCIÓN CINE (2:3 PORTRAIT) -->
+    <!-- SECCIÓN CINE -->
     <h2 class="section-title" id="sec-cine" style="margin-top: 12px;">Cine & Entretenimiento</h2>
     <div class="scroll-container">
       
       <a href="https://pelisflix.top/" target="_blank" rel="noopener noreferrer" class="card card-portrait media-card">
-        <img src="https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?q=80&w=400&auto=format&fit=crop" alt="Pelisflix">
+        <img src="https://picsum.photos/id/1060/300/450" alt="Pelisflix">
         <div class="card-content">
           <span class="card-badge">PELIS</span>
           <div>
@@ -479,7 +485,7 @@
       </a>
 
       <a href="https://seriesflixhd.win/" target="_blank" rel="noopener noreferrer" class="card card-portrait media-card">
-        <img src="https://images.unsplash.com/photo-1522869635100-9f4c5e86aa37?q=80&w=400&auto=format&fit=crop" alt="Seriesflix HD">
+        <img src="https://picsum.photos/id/1062/300/450" alt="Seriesflix HD">
         <div class="card-content">
           <span class="card-badge">SERIES</span>
           <div>
@@ -490,7 +496,7 @@
       </a>
 
       <a href="https://animeonline.ninja/" target="_blank" rel="noopener noreferrer" class="card card-portrait media-card">
-        <img src="https://images.unsplash.com/photo-1578632767115-351597cf2477?q=80&w=400&auto=format&fit=crop" alt="Anime Online">
+        <img src="https://picsum.photos/id/1067/300/450" alt="Anime Online">
         <div class="card-content">
           <span class="card-badge">ANIME</span>
           <div>
@@ -503,7 +509,7 @@
     </div>
   </div>
 
-  <!-- NAVEGACIÓN FLOTANTE -->
+  <!-- BOTTOM BAR -->
   <nav class="bottom-nav">
     <a href="#sec-inicio" class="nav-item active">
       <i class="fa-solid fa-house"></i>
@@ -519,7 +525,7 @@
     </a>
   </nav>
 
-  <!-- JS FILTRADO Y DESPLAZAMIENTO SUAVE -->
+  <!-- JS -->
   <script>
     function filtrar(query) {
       const q = query.toLowerCase().trim();
